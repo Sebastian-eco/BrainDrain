@@ -10,6 +10,7 @@ library(tidyverse)
 library(readxl)
 ```
 
+# Cargar Bases de datos
 
 ```{r}
 NorMen <- read_excel("datos/iabbd_8010_v1 (2).xls", 
@@ -32,4 +33,22 @@ Unem <- read_excel("datos/API_SL.UEM.TOTL.ZS_DS2_es_excel_v2_2253098.xls",
                    sheet = "Data")
 
 ```
+
+# Modificando bases de datos
+
+```{r}
+# Indice de percpeción de corrupción 
+CPI <- CPI %>% select(c("Jurisdiction", "2010"))
+
+CPI <- rename(CPI, Country = "Jurisdiction", Corruption = "2010")
+
+# Indice de Desarrollo  Humano
+
+HDI <- HDI %>% select(c("Country", "2010"))
+
+HDI <- rename(HDI, Development = "2010")
+
+
+```
+
 
