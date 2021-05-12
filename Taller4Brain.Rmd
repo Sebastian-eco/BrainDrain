@@ -1,0 +1,35 @@
+---
+title: "Taller 4"
+author: "Nathalie Bareño, Karen Vargas y Sebastián Rincón"
+output: html_notebook
+date: "16 de mayo"
+---
+
+```{r}
+library(tidyverse)
+library(readxl)
+```
+
+
+```{r}
+NorMen <- read_excel("datos/iabbd_8010_v1 (2).xls", 
+                            sheet = "NOR-Men")
+
+NorWom <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "NOR-Women")
+
+USMen <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "USA-Men")
+
+USWom <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "USA-Women")
+HDI <- read_csv("datos/Human Development Index (HDI) (1).csv", 
+                  skip = 5)
+
+CPI <- read_delim("datos/data_csv.csv", delim = ",")
+
+Unem <- read_excel("datos/API_SL.UEM.TOTL.ZS_DS2_es_excel_v2_2253098.xls",
+                   sheet = "Data")
+
+```
+
