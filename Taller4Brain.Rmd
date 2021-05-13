@@ -48,7 +48,64 @@ HDI <- HDI %>% select(c("Country", "2010"))
 
 HDI <- rename(HDI, Development = "2010")
 
+# Desempleo
+
+Unem <- Unem %>% select(c("Data Source", "...55"))
+
+Unem <- rename(Unem, Country = "Data Source", Unemployment = "...55")
+
+Unem <- Unem[-c(1,2,3),]
+
+# Noruega Hombres
+
+NorMen <- NorMen %>% select(c("Norway", "...29"))
+
+NorMen <- rename(NorMen, Country = "Norway", HighMenNor = "...29")
+
+NorMen <-  NorMen[-c(1,2,3),]
+
+# Noruega Mujeres 
+
+NorWom <- NorWom %>% select(c("Norway", "...29"))
+
+NorWom <- rename(NorWom, Country = "Norway", HighWomNor = "...29")
+
+NorWom <-  NorWom[-c(1,2,3),]
+
+# Estados Unidos Hombres
+
+USMen <- USMen %>% select(c("United States", "...29"))
+
+USMen <- rename(USMen, Country = "United States", HighMenUS = "...29")
+
+USMen <-  USMen[-c(1,2,3),]
+
+# Estados Unidos Mujeres
+
+USWom <- USWom %>% select(c("United States", "...29"))
+
+USWom <- rename(USWom, Country = "United States", HighWomUS = "...29")
+
+USWom <-  USWom[-c(1,2,3),]
 
 ```
+
+# Unir
+
+```{r}
+
+Union1 <- left_join(NorMen,NorWom, by = "Country") 
+
+Union2 <- left_join(USWom, USMen, by ="Country")
+
+UnionY <- left_join(Union1, Union2, by = "Country")
+
+Union3 <- left_join(CPI, HDI, by = "Country")
+
+UnionX <- left_join(Union3, Unem, by = "Country")
+
+Base <- left_join(UnionY, UnionX, by = "Country")
+```
+
 
 
