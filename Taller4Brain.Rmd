@@ -107,5 +107,32 @@ UnionX <- left_join(Union3, Unem, by = "Country")
 Base <- left_join(UnionY, UnionX, by = "Country")
 ```
 
+# Identificar tipo de datos
+
+```{r}
+sapply(Base, class)
+```
+
+#Modificar tipo de datos
+
+```{r}
+Base$HighMenNor <- as.numeric(Base$HighMenNor)
+Base$HighWomNor <- as.numeric(Base$HighWomNor)
+Base$HighMenUS <- as.numeric(Base$HighMenUS)
+Base$HighWomUS <- as.numeric(Base$HighWomUS)
+Base$Corruption <- as.numeric(Base$Corruption)
+Base$Development <- as.numeric(Base$Development)
+Base$Unemployment <- as.numeric(Base$Unemployment)
+
+sapply(Base, class)
+
+
+```
+
+
+
+
+
+
 
 
