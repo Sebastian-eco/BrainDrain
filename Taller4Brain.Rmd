@@ -130,9 +130,89 @@ sapply(Base, class)
 ```
 
 
+#Punto 6
+Realicen un histograma y/o gráfico de barras, según se trate de una variable cuantitativa
+o categórica, para la variable dependiente y para la principal variable independiente.
+Las gráficas las deben realizar usando el paquete ggplot, y deben modificarlas en
+cuanto a número de bins, títulos, subtítulos, etiquetas de los ejes, escalas numéricas de
+los ejes y colores de una manera que permitan visualizar con claridad la información.
+```{r}
+ggplot(data= Base, mapping = aes(
+  x=HighMenNor,
+  ))+
+  geom_histogram(aes(HighMenNor), bins = 20)+
+  labs(tittle="Hombres Migrantes en Noruega", subtitle = "Migración de hombres con alto capital humano registrados en Noruega en el año 2010 con presedencia de todos los países del mundo", x= "Hombres migrantes con alto capital humano en Noruega", y= "Cantidad de países de origen" , caption = "Fuente=Instituto de Investigación Laboral (IAB)")
+
+
+```
+
+
+```{r}
+ggplot(data= Base, mapping = aes(
+  x=HighWomNor,
+  ))+
+  geom_histogram(aes(HighWomNor), bins = 20)+
+  labs(tittle="Hombres Migrantes en Noruega", subtitle = "Migración de mujeres con alto capital humano registradas en Noruega en el año 2010 con presedencia de todos los países del mundo", x= "Mujeres migrantes con alto capital humano en Noruega", y= "Cantidad de países de origen" , caption = "Fuente=Instituto de Investigación Laboral (IAB)")
+
+
+```
+
+```{r}
+ggplot(data= Base, mapping = aes(
+  x=HighMenUS,
+  ))+
+  geom_histogram(aes(HighMenUS), bins = 20)+
+  labs(tittle="Hombres Migrantes en Estados Unidos", subtitle = "Migración de Hombres con alto capital humano registrados en Estados Unidos en el año 2010 con presedencia de todos los países del mundo", x= "Hombres migrantes con alto capital humano en Estados Unidos", y= "Cantidad de países de origen" , caption = "Fuente=Instituto de Investigación Laboral (IAB)")
+
+
+```
+
+
+```{r}
+ggplot(data= Base, mapping = aes(
+  x=HighWomUS,
+  ))+
+  geom_histogram(aes(HighWomUS), bins = 20)+
+  labs(tittle="Mujeres Migrantes en Estados Unidos", subtitle = "Migración de Mujeres con alto capital humano registradas en Estados Unidos en el año 2010 con presedencia de todos los países del mundo", x= "Mujeres migrantes con alto capital humano en Estados Unidos", y= "Cantidad de países de origen" , caption = "Fuente=Instituto de Investigación Laboral (IAB)")
+
+
+```
+
+```{r}
+ggplot(data= Base, mapping = aes(
+  x=Development,
+  ))+
+  geom_histogram(aes(Development), bins = 15)+
+  labs(tittle="Indice de desarrollo humano", x= "Indice de desarrollo humano", y= "Cantidad de países de origen" , caption = "Fuente= UNESCO Institute for Statistics")
+
+
+```
+
+
+#Unión de las graficas
+```{r}
+
+```
+#Punto 7
+Para las variables cuantitativas (continuas y discretas), calculen la correlación entre
+cada pareja de variables y presenten estas correlaciones en una matriz de correlaciones.
+Para las variables categóricas hagan una tabla cruzada para cada par de variables. En
+ambos casos, comente sobre los resultados más relevantes.
+
+```{r}
+#Correlación de HighMenNor
+
+library(PerformanceAnalytics)
+dat1 <- data.frame(Base$HighMenNor, Base$Development)
+chart.Correlation(dat1)
+
+dat2 <- data.frame(Base$HighMenNor, Base$Corruption)
+chart.Correlation(dat2)
+
+dat3 <- data.frame(Base$HighMenNor, Base$Unemployment)
+chart.Correlation(dat3)
 
 
 
-
-
+```
 
