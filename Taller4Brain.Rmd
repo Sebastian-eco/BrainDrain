@@ -8,6 +8,8 @@ date: "16 de mayo"
 ```{r}
 library(tidyverse)
 library(readxl)
+library(scales)
+library(ggpubr)
 ```
 
 # Cargar Bases de datos
@@ -233,10 +235,38 @@ Realicen una gráfica que les permita relacionar la variable dependiente y la pr
 Poseemos 4 variables dependientes seccionadas en Noruega y Estados Unidos las cuales también se encuentran dividas por si los inmigrantes fueron mujeres o hombres. La principal variable de interés es el índice de desarrollo humano.
 
 ```{r}
-ggplot(data = Base, 
+a8 <- ggplot(data = Base, 
        mapping = aes(x = Development, y = HighMenUS)) +
-  geom_point()
+  geom_point(color = "blue") +
+  scale_y_continuous(labels = label_number()) +
+  labs(subtitle = "Dispersograma inmigración Masculina hacía los Estados Unidos", x = "Índice de Desarrollo Humano", y = "Número de inmigrantes altamente cualificados(2010)")
 ```
 
+```{r}
+b8 <- ggplot(data = Base, 
+       mapping = aes(x = Development, y = HighWomUS)) +
+  geom_point(color = "red") +
+  scale_y_continuous(labels = label_number()) +
+  labs(subtitle = "Dispersograma inmigración Femenina hacía los Estados Unidos", x = "Índice de Desarrollo Humano", y = "Número de inmigrantes altamente cualificados(2010)")
+```
 
+```{r}
+c8 <- ggplot(data = Base, 
+       mapping = aes(x = Development, y = HighWomNor)) +
+  geom_point(color = "red") +
+  scale_y_continuous(labels = label_number()) +
+  labs(subtitle = "Dispersograma inmigración Femenina hacía Noruega", x = "Índice de Desarrollo Humano", y = "Número de inmigrantes altamente cualificados(2010)")
+```
+
+```{r}
+d8 <- ggplot(data = Base, 
+       mapping = aes(x = Development, y = HighMenNor)) +
+  geom_point(color = "blue") +
+  scale_y_continuous(labels = label_number()) +
+  labs(subtitle = "Dispersograma inmigración Masculina hacía Noruega", x = "Índice de Desarrollo Humano", y = "Número de inmigrantes altamente cualificados(2010)")
+```
+
+```{r}
+ggarrange(a8,b8,c8,d8)
+```
 
