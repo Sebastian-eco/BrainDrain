@@ -216,3 +216,27 @@ chart.Correlation(dat3)
 
 ```
 
+
+
+
+
+
+
+# Punto 8
+
+Realicen una gráfica que les permita relacionar la variable dependiente y la principal variable independiente de interés. Si tienen varias variables independientes de interés, realicen una grpafica para mostrar la relación entre cada una de estas variables y la variable dependiente. Realicen las transformaciones en las variables que consideren necesarias para mostrar de mejor manera la información en estas gráficas. Las gráficas las deben realizar usando el paquete *ggplot*, y deben modificar los títulos, etiquetas de los ejes, escalas numéricas de los ejes y colores de una manera que permitan visualizar con claridad la información. Siga las siguientes recomendaciones:
+
+ - Sí las dos variables son cuantitativas el gráfico debe ser un diagrama de dispersión.
+ - Sí las dos variables son categóricas el gráfico debe ser un gráfico de barras que permita visualizar las dos variables.
+ - Sí una variable es cuantitativa y la otra categ´rica, en un mismo gráfico realice un polígono de frecuencia, una densidad o un diagrama de cajas de la variable cuantitativa para cada una de las categorías de la variable categórica. Por ejemplo, fi fueran a analizar la relación entre el tipo de colegio y puntaje, debería hacer un polígono de fercuencias, una densidad o un diagrama de cajas para el puntaje para los colegios públicos y otro para los colegios privados. Ambos polígonos o densidades deberían estar en la misma gráfica (i.e. mismo plano cartesiano) para poder apreciar las diferencias en la distribución de los puntajes de los estudiantes de ambos tipos de colegios. Si la variable categórica tuviera más de tres categorías, la gráfica podría hacerse con una función *facet_*.
+ 
+Poseemos 4 variables dependientes seccionadas en Noruega y Estados Unidos las cuales también se encuentran dividas por si los inmigrantes fueron mujeres o hombres. La principal variable de interés es el índice de desarrollo humano.
+
+```{r}
+ggplot(data = Base, 
+       mapping = aes(x = Development, y = HighMenUS)) +
+  geom_point()
+```
+
+
+
