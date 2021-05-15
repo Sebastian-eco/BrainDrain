@@ -11,6 +11,7 @@ library(readxl)
 library(scales)
 library(ggpubr)
 library(stargazer)
+library(GGally)
 ```
 
 # Cargar Bases de datos
@@ -156,7 +157,21 @@ stats <- stargazer(as.data.frame(Base), type = "text",
 
 ```
 
+En primer lugar, cabe decir que el número de observaciones para las variables dependientes de este estudio (migración de hombres y mujeres para Noruega y Estados Unidos) es 196. En cuanto a las variables independientes, es decir, corrupción, IDH y desempleo, no se tiene el mismo número de observaciones. La variable que tiene más valores faltantes es la relacionada con el desempleo (con 126 valores), seguida a esta, se encuentra el índice de desarrollo humano con 40 valores faltantes y por último, la variable proxy de corrupción, que tiene 31 valores faltantes.
 
+Ahora, teniendo en cuenta la media, se puede decir que Estados Unidos tiene un flujo más grande de migración calificada que Noruega,  representando aproximadamente el 1% de la estadounidense. Además, se evidencia, para los dos países, que la migración altamente calificada femenina es mayor que la masculina. Por otro lado, el índice de percepción de corrupción muestra que en un escala de 0-10, que es la utilizada para el periodo de estudio (2010), captura una media global de 4. Sin embargo, para Estados Unidos se tiene un índice de corrupcion de 7.1 y para Noruega de 8.6.
+
+Por su parte, el índice de desarrollo humano, medido en una escala de 0-1. Para este caso, Estados Unidos tiene un índice más alto (0.916) que Noruega (0.940) y la media global es de 0.7. Ambos de los países en estudio estan catalogados como países con alto desarrollo Humano, al tener un valor mayor a 0.8. Por ultimo, no se conoce ni para Estados Unidos, ni para Noruega, la tasa de desempleo en el año 2010, en otras palabras, hacen parte de los valores faltantes.
+
+En cuanto a la desviación estándar, esta nos indica que el número de migrantes altamente calificados, tanto para hombres como mujeres en Noruega, se desvía de la media aproximadamente 1000 personas. En Estados Unidos, la desviación estándar es mucho más amplia, con un promedio de 87000 personas.
+
+Revisando esta estadística para las variables independientes, primero, se encuentra que el puntaje para el índice de corrupción se desvía de la media en 2.1 puntos; segundo, el puntaje para el índice desarrollo humano se desvía en 0.2 puntos en su escala y tercero la tasa de desempleo se desvía de su media en 5.4%.
+
+El valor mínimo para las variables dependientes es de 0, es decir, ninguna persona migró a Estados Unidos o Noruega desde otro país; el valor máximo para la migración hacia Noruega es mayor para los hombres (9940 de Polonia) que para las mujeres (6785 de Suecia). En Estados Unidos el máximo también es mayor para los hombres (675837 de México) que para las mujeres (672968 de Filipinas). No obstante, como se dijo anteriormente se tiene una media mayor para las mujeres que para los hombres.
+
+La variable proxy de corrupción tiene un valor mínimo de 1.1 en Somalia y un valor máximo de 9.3 en Dinamarca, Singapur y Nueva Zelanda. Por otro lado, el índice de desarrollo humano muestra un valor mínimo de 0.3 en Nigeria y uno máximo de 0.9 en Suiza y para la tasa de desempleo se tiene un mínimo de 0.4 en Qatar y un máximo de 26.8 en Lesoto
+
+Como última estadística descriptiva se tiene a los percentiles 25 y 75, también llamados cuartiles 1 y 3, respectivamente. El primero de estos muestra que el 25% de los datos a) de migración hacia Noruega es menor o igual aproximadamente a 6.7  personas, b) de migración hacia Estados Unidos es menor o igual a aproximadamente 221 personas, c) del índice de percepción de corrupción es menor o igual a 2.4, d) del índice de desarrollo humano es menor o igual a 0.5 y e) de la tasa de desempleo es menor o igual a 3.4. Por su parte, el cuartil 3 muestra que el 75% de los datos son iguales o menores a) en la migración hacia Noruega a aproximadamente 240 personas, b) en la migración hacia Estados Unidos a aproximadamente 27301 personas, c) en el índice de corrupción a 5.1 puntos, d) en el índice de desarrollo humano a 0.8 y e) en la tasa de desempleo a 9.8.
 
 # Punto 6
 Realicen un histograma y/o gráfico de barras, según se trate de una variable cuantitativa
@@ -222,10 +237,9 @@ ggarrange(a6, b6, c6, d6)
 
 ```{r}
 ggplot(data= Base, mapping = aes(
-  x=Development,
-  ))+
-  geom_histogram(aes(Development), bins = 15)+
-  labs(tittle="Indice de desarrollo humano", x= "Indice de desarrollo humano", y= "Cantidad de países de origen" , caption = "Fuente= UNESCO Institute for Statistics")
+  x=Development))+
+  geom_histogram(aes(Development), bins = 15, fill= "light blue")+
+  labs(title="Indice de Desarrollo Humano", x= "Indice de desarrollo humano", y= "Países" , caption = "Fuente= UNESCO Institute for Statistics")
 
 
 ```
@@ -239,20 +253,23 @@ Para las variables categóricas hagan una tabla cruzada para cada par de variabl
 ambos casos, comente sobre los resultados más relevantes.
 
 ```{r}
-#Correlación de HighMenNor
+PNor <- Base %>% select(c("HighMenNor", "HighWomNor", "Corruption","Development", "Unemployment"))
+ggpairs(PNor)
+```
 
-library(PerformanceAnalytics)
-dat1 <- data.frame(Base$HighMenNor, Base$Development)
-chart.Correlation(dat1)
+Lo que salta a primera vista es la fuerte correlación que se presenta entre *HigMenNor* y *HighWomNor* que índican la cantidad de inmigrantes masculinos y femeninos respectivamente, que son altamente cualificados y viajaron a Noruega en el año 2010 con una correlación de 0.87, muy cercana a 1.
 
-dat2 <- data.frame(Base$HighMenNor, Base$Corruption)
-chart.Correlation(dat2)
+Con ello podemos inferir que las brechas en cuanto a fuga de cerebros no es sutancial, pues dadas unas condiciones iniciales de los países tanto de origen como el de destino que en este caso es el de Noruega.
 
-dat3 <- data.frame(Base$HighMenNor, Base$Unemployment)
-chart.Correlation(dat3)
+Otro dato que es inferible inclusive sin los datos es los estandares de corrupción medido en el Índice de Percepción de Corrupción y el nivel de desarrollo medido en el Índice de Desarrollo Humano. El primero con una escala de 0 a 100, donde 100 se percibe como el menos corrupto y con mayor transparencia, mostrando que tener un buen puntaje está correlacionado de igual manera con tener un IDH alto. 
 
+Consecuentemente hay correlación positiva pero debíl de corrupción (mejor puntaje) tanto hombres como mujeres prefieren inmigrar a países como Noruega relacionandose con quizas que pueden desarrollar su parte academicá y de así desenvolver su carrera laboral en el exterior.
 
+Por último, el desempleo tiene una correlación casi nula del 0.06 y el 0.048 con la inmigración tanto de hombres como de mujeres a Noruega.
 
+```{r}
+PUS <- Base %>% select(c("HighMenUS", "HighWomUS", "Corruption","Development", "Unemployment"))
+ggpairs(PUS)
 ```
 
 
