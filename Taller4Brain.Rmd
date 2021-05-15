@@ -1,8 +1,10 @@
 ---
 title: "Taller 4"
 author: "Nathalie Bareño, Karen Vargas y Sebastián Rincón"
-output: html_notebook
 date: "16 de mayo"
+output:
+  pdf_document: default
+  html_notebook: default
 ---
 
 ```{r}
@@ -13,6 +15,7 @@ library(ggpubr)
 library(stargazer)
 library(GGally)
 ```
+# Puntos del 1 al 4
 
 # Cargar Bases de datos
 
