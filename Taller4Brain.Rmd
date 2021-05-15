@@ -10,6 +10,7 @@ library(tidyverse)
 library(readxl)
 library(scales)
 library(ggpubr)
+library(stargazer)
 ```
 
 # Cargar Bases de datos
@@ -118,67 +119,106 @@ sapply(Base, class)
 #Modificar tipo de datos
 
 ```{r}
-Base$HighMenNor <- as.numeric(Base$HighMenNor)
-Base$HighWomNor <- as.numeric(Base$HighWomNor)
-Base$HighMenUS <- as.numeric(Base$HighMenUS)
-Base$HighWomUS <- as.numeric(Base$HighWomUS)
-Base$Corruption <- as.numeric(Base$Corruption)
-Base$Development <- as.numeric(Base$Development)
-Base$Unemployment <- as.numeric(Base$Unemployment)
+base <- as.data.frame(sapply(Base[,2:8],as.numeric))
+
+Base <- cbind(Base[,1],base)
 
 sapply(Base, class)
+```
+# Punto 5
 
+Usen alguna de las siguientes funciones para realizar una tabla de estadísticas descriptivas
+para las variables que van a incluir en su estudio, según sus necesidades: summarize,
+statdesc(), summary(), stargazer(), datasummary() o datasummary_balance. Si
+su variable dependiente o la principal variable independiente es una variable categórica,
+realice una distribución de frecuencias que incluya las frecuencias absoluta y relativa,
+y de ser el caso, las frecuencias absoluta y relativa acumuladas. Incluya esta tabla en
+el RMarkdown usando la función kable del paquete knitr, o stargazer directamente,
+según sea el caso.
+
+
+**Para simplificar la visualización de los datos, se tendran en cuenta tanto en cuadros como gráficos la siguiente nomenclatura**:
+ - NOR-Hombres: cantidad de inmigrantes masculinos altamente cualificados que ingresaron a Noruega en el año 2010.
+ - NOR-Mujeres: cantidad de inmigrantes femeninos altamente cualificados que ingresaron a Noruega en el año 2010.
+ - US-Mujeres: cantidad de inmigrantes femeninos altamente cualificados que ingresaron a Estados Unidos en el año 2010.
+ - US-Hombres: cantidad de inmigrantes masculinos altamente cualificados que ingresaron a Estados Unidos en el año 2010.
+
+
+```{r}
+stats <- stargazer(as.data.frame(Base), type = "text", 
+          out = "tabla1.tex", 
+          title = "Tabla 1 - Estadística Descriptiva",
+          digits = 1, 
+          covariate.labels = c("NOR-Hombres", "NOR-Mujeres", 
+                               "US-Mujeres", 
+                               "US-Hombres", "Corrupción", "IDH", "Desempleo"),
+          flip = TRUE)
 
 ```
 
 
-#Punto 6
+
+# Punto 6
 Realicen un histograma y/o gráfico de barras, según se trate de una variable cuantitativa
 o categórica, para la variable dependiente y para la principal variable independiente.
 Las gráficas las deben realizar usando el paquete ggplot, y deben modificarlas en
 cuanto a número de bins, títulos, subtítulos, etiquetas de los ejes, escalas numéricas de
 los ejes y colores de una manera que permitan visualizar con claridad la información.
+
+### Variables dependientes
+
+Por la necesidad de realizar distintos modelos con 4 variables dependientes:
+
+$Y_1 , Y_2, Y_3, Y_4 $\
+
+**Bins optimo**
+
+$ 1 + (log(196)/log(2)) = 9$ \
+
+La nomenclatura usada para expresar la cantidad de personas altamente cualificadas por país de destino y por genero será *No.Cualificados*. Adicionalmente, para reflejar el número de nacionalidades o de país de origen se usara el termino *Países*.
+
+
 ```{r}
-ggplot(data= Base, mapping = aes(
-  x=HighMenNor,
+a6 <- ggplot(data= Base, mapping = aes(
+  x=HighMenNor
   ))+
-  geom_histogram(aes(HighMenNor), bins = 20)+
-  labs(tittle="Hombres Migrantes en Noruega", subtitle = "Migración de hombres con alto capital humano registrados en Noruega en el año 2010 con presedencia de todos los países del mundo", x= "Hombres migrantes con alto capital humano en Noruega", y= "Cantidad de países de origen" , caption = "Fuente=Instituto de Investigación Laboral (IAB)")
-
-
+  geom_histogram(aes(HighMenNor), bins = 9)+
+    labs(title="NOR-Hombres", x= "No.Cualificados", y= "Países")
 ```
 
-
 ```{r}
-ggplot(data= Base, mapping = aes(
+b6 <- ggplot(data= Base, mapping = aes(
   x=HighWomNor,
   ))+
-  geom_histogram(aes(HighWomNor), bins = 20)+
-  labs(tittle="Hombres Migrantes en Noruega", subtitle = "Migración de mujeres con alto capital humano registradas en Noruega en el año 2010 con presedencia de todos los países del mundo", x= "Mujeres migrantes con alto capital humano en Noruega", y= "Cantidad de países de origen" , caption = "Fuente=Instituto de Investigación Laboral (IAB)")
-
-
+  geom_histogram(aes(HighWomNor), bins = 9)+
+    labs(title="NOR-Mujeres", x= "No.Cualificados", y= "Países")
 ```
 
 ```{r}
-ggplot(data= Base, mapping = aes(
+c6 <- ggplot(data= Base, mapping = aes(
   x=HighMenUS,
   ))+
-  geom_histogram(aes(HighMenUS), bins = 20)+
-  labs(tittle="Hombres Migrantes en Estados Unidos", subtitle = "Migración de Hombres con alto capital humano registrados en Estados Unidos en el año 2010 con presedencia de todos los países del mundo", x= "Hombres migrantes con alto capital humano en Estados Unidos", y= "Cantidad de países de origen" , caption = "Fuente=Instituto de Investigación Laboral (IAB)")
-
-
+  geom_histogram(aes(HighMenUS), bins = 9)+
+  labs(title="US-Hombres", x= "No.Cualificados", y= "Países")
 ```
-
 
 ```{r}
-ggplot(data= Base, mapping = aes(
+d6 <- ggplot(data= Base, mapping = aes(
   x=HighWomUS,
   ))+
-  geom_histogram(aes(HighWomUS), bins = 20)+
-  labs(tittle="Mujeres Migrantes en Estados Unidos", subtitle = "Migración de Mujeres con alto capital humano registradas en Estados Unidos en el año 2010 con presedencia de todos los países del mundo", x= "Mujeres migrantes con alto capital humano en Estados Unidos", y= "Cantidad de países de origen" , caption = "Fuente=Instituto de Investigación Laboral (IAB)")
-
-
+  geom_histogram(aes(HighWomUS), bins = 9)+
+  labs(title="US-Mujeres", x= "No.Cualificados", y= "Países" , caption = "Fuente=Instituto de Investigación Laboral (IAB)")
 ```
+
+Uniendo las distitans gráficas obtenemos:
+
+```{r}
+ggarrange(a6, b6, c6, d6)
+```
+
+
+
+### Variable Independiente
 
 ```{r}
 ggplot(data= Base, mapping = aes(
@@ -191,10 +231,7 @@ ggplot(data= Base, mapping = aes(
 ```
 
 
-#Unión de las graficas
-```{r}
 
-```
 #Punto 7
 Para las variables cuantitativas (continuas y discretas), calculen la correlación entre
 cada pareja de variables y presenten estas correlaciones en una matriz de correlaciones.
