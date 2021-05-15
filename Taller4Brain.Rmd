@@ -231,7 +231,11 @@ Uniendo las distitans gráficas obtenemos:
 ggarrange(a6, b6, c6, d6)
 ```
 
+Para los 2 países y los 2 generos evidenciamos una relación similar por no decir igual. Donde no hay una discrimnación por sexo en cuanto a distribución de los datos tanto para Noruega como para los Estados Unidos.
 
+Y algo quizas más relevante es que hay una concentración grande de los datos en los 4 escenarios (Hombre-Noruega, Mujer-Noruega, Hombre-Estados Unidos y Mujer-Estados Unidos) de más de 150 países de origen o nacionalidad en la cual hubo o 0 de personas altamente cualificadas que inmigraron a estos dos países o fueron pocas.
+
+Se encuentran una excepciones que se visualizan casi como lineas en los 4 gráficos.
 
 ### Variable Independiente
 
@@ -244,7 +248,9 @@ ggplot(data= Base, mapping = aes(
 
 ```
 
+Para el caso del índice de Desarrollo Humano se encuenta una distribución "trimodal", aunque tiende un poco más a una bimodal con un grupo exceptuado.
 
+Esto remarca 3 bloques: países de ingresos bajos que ocupan la primera campana, países de ingreso medio o economías emergentes que ocupan la segunda campana y son la mayoría y por último un grupo exceptuado de estás dos campanas o bien una tercera campana empinada economías avanzadas (ingresos altos) con altos índices de desarrollo humano.
 
 #Punto 7
 Para las variables cuantitativas (continuas y discretas), calculen la correlación entre
@@ -272,11 +278,9 @@ PUS <- Base %>% select(c("HighMenUS", "HighWomUS", "Corruption","Development", "
 ggpairs(PUS)
 ```
 
+A diferencia con Noruega como destino de mano de obra altamente cualificada, Estados Unidos reduce la brecha mínima que existia en al caso anteriormente detalladao donde la correlación era de 0.87 y entes caso llegas hasta un 0.96. No obstante, hasta este punto no se puede asegurar si la brecha vaya en favor de algún genero.
 
-
-
-
-
+No obstante, de manera curiosa la correlación por parte del índice de Percepción de Corrupción muestra una correlación si bien insignificante, pero negativa de -0.021 para hombres y de -0.009. Sucede lo mismo con la variable del desempleo donde antes era positiva y con una correlación muy pequeña, en este caso se vuelve negativa pero sigue siendo pequea de -0.05 y -0.03 respectivamente.
 
 # Punto 8
 
@@ -293,7 +297,7 @@ a8 <- ggplot(data = Base,
        mapping = aes(x = Development, y = HighMenUS)) +
   geom_point(color = "blue") +
   scale_y_continuous(labels = label_number()) +
-  labs(subtitle = "Dispersograma inmigración Masculina hacía los Estados Unidos", x = "Índice de Desarrollo Humano", y = "Número de inmigrantes altamente cualificados(2010)")
+  labs(subtitle = "Dispersograma US-Hombres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")
 ```
 
 ```{r}
@@ -301,7 +305,7 @@ b8 <- ggplot(data = Base,
        mapping = aes(x = Development, y = HighWomUS)) +
   geom_point(color = "red") +
   scale_y_continuous(labels = label_number()) +
-  labs(subtitle = "Dispersograma inmigración Femenina hacía los Estados Unidos", x = "Índice de Desarrollo Humano", y = "Número de inmigrantes altamente cualificados(2010)")
+  labs(subtitle = "Dispersograma US-Mujeres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")
 ```
 
 ```{r}
@@ -309,7 +313,7 @@ c8 <- ggplot(data = Base,
        mapping = aes(x = Development, y = HighWomNor)) +
   geom_point(color = "red") +
   scale_y_continuous(labels = label_number()) +
-  labs(subtitle = "Dispersograma inmigración Femenina hacía Noruega", x = "Índice de Desarrollo Humano", y = "Número de inmigrantes altamente cualificados(2010)")
+  labs(subtitle = "Dispersograma NOR-Mujeres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")
 ```
 
 ```{r}
@@ -317,10 +321,29 @@ d8 <- ggplot(data = Base,
        mapping = aes(x = Development, y = HighMenNor)) +
   geom_point(color = "blue") +
   scale_y_continuous(labels = label_number()) +
-  labs(subtitle = "Dispersograma inmigración Masculina hacía Noruega", x = "Índice de Desarrollo Humano", y = "Número de inmigrantes altamente cualificados(2010)")
+  labs(subtitle = "Dispersograma NOR-Hombres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")
 ```
 
 ```{r}
 ggarrange(a8,b8,c8,d8)
 ```
+
+Visualmente encontramos respuesta a la pregunta que se termino planteando en el punto anterior sobre la breca que existia entre hombres y mujeres altamente cualificados para migrar a Noruega y a Estados Unidos, donde la primera contaba con un 0,87 y la segunda con un 0,96.
+
+En el caso de Estados Unidos el dispersograma muestra una convergencia del comportamiento de inmigración masculina y femenina hacía este país. Sin embargo en el caso Noruego, las mujeres altamente cualificadas tienen un mayor flujo migratorio dado cualquier nivel de desarrollo del país de origen. La única excepción a la regla es una nacionalidad de hombres que para el 2010 hubieron cerca de 10.000 inmigrantes masculinos a Noruega.
+
+Esto demuestra la razón inicial de poner a Noruega en comparación con Estados Unidos y es que su seleccipon se baso en que está colocado como un referente en eliminaciónde brechas de genero y uno de los mejores países para vivir siendo mujer tanto en la revista Britanica The Economist como el Gender Index de National Geographic.
+
+# Punto 9
+
+Usando la información presentada en las preguntas 6 a 9, ¿qué concluyen sobre la distribución de sus varaibles de interés y sobre la relación entre estas variables? Responda esta pregunta en al menos tres parrafos.
+
+Se evidencia las grandes brechas de desarrollo entre países y oportunidades de acceso para convertirse en mano de obra altamente cualificada. Primeramente, se muestra que para el analisis de Estados Unidos y Noruega como países receptores de está mano de obra altamente cualificada y distinguiendo por genero, hay una gran concentración de pocos inmigrantes o directamente la carencia de estos hacía los dos países analizados.
+
+Conjuntamente se evidencia esa triple división en desarrollo humano que puede imposibilitar lo relatado en el parrafo anterior, ya que los países de ingresos bajos y medios son mayoría.
+
+Un segundo detalle para evidenciar se da en las correlaciones de las variables, en el caso de que no hay una discrimanción por sexo independiente del destino, pero si existe una brecha en la cual dadas unas condiciones iniciales las mujeres se ven más incentivadas a inmigrar como mano de obra altamente cualifcada.
+
+Destacando en noruega que independientemente de niveles de desarrollo de paíse de origen inmigran más a Noruega que los hombres cosa que se había mencionado siendo este país uno de los mejores posesionados tanto en un top de los mejores países para ser mujer tanto de The Economist como de National Geographic. 
+
 
