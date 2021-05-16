@@ -14,10 +14,11 @@ library(scales)
 library(ggpubr)
 library(stargazer)
 library(GGally)
+library(ggthemes)
 ```
 # Puntos del 1 al 4
 
-# Cargar Bases de datos
+# Carga de bases de datos
 
 ```{r}
 NorMen <- read_excel("datos/iabbd_8010_v1 (2).xls", 
@@ -41,15 +42,16 @@ Unem <- read_excel("datos/API_SL.UEM.TOTL.ZS_DS2_es_excel_v2_2253098.xls",
 
 ```
 
-# Modificando bases de datos
+# Modificación de bases de datos
 
 ```{r}
-# Indice de percpeción de corrupción 
+# Índice de Percepción de Corrupción 
+
 CPI <- CPI %>% select(c("Jurisdiction", "2010"))
 
 CPI <- rename(CPI, Country = "Jurisdiction", Corruption = "2010")
 
-# Indice de Desarrollo  Humano
+# Índice de Desarrollo  Humano
 
 HDI <- HDI %>% select(c("Country", "2010"))
 
@@ -97,7 +99,7 @@ USWom <-  USWom[-c(1,2,3),]
 
 ```
 
-# Unir
+# Unión de bases de datos
 
 ```{r}
 
@@ -114,13 +116,13 @@ UnionX <- left_join(Union3, Unem, by = "Country")
 Base <- left_join(UnionY, UnionX, by = "Country")
 ```
 
-# Identificar tipo de datos
+# Identificación del tipo de datos
 
 ```{r}
 sapply(Base, class)
 ```
 
-#Modificar tipo de datos
+# Modificación del tipo de datos
 
 ```{r}
 base <- as.data.frame(sapply(Base[,2:8],as.numeric))
@@ -131,20 +133,18 @@ sapply(Base, class)
 ```
 # Punto 5
 
-Usen alguna de las siguientes funciones para realizar una tabla de estadísticas descriptivas
-para las variables que van a incluir en su estudio, según sus necesidades: summarize,
-statdesc(), summary(), stargazer(), datasummary() o datasummary_balance. Si
-su variable dependiente o la principal variable independiente es una variable categórica,
-realice una distribución de frecuencias que incluya las frecuencias absoluta y relativa,
-y de ser el caso, las frecuencias absoluta y relativa acumuladas. Incluya esta tabla en
-el RMarkdown usando la función kable del paquete knitr, o stargazer directamente,
-según sea el caso.
+Usando la función stargazer() se realizará una tabla de estadísticas descriptivas
+para las variables que se incluyen en el estudio. Se incluye esta tabla en el RMarkdown con la misma función.
 
 
-**Para simplificar la visualización de los datos, se tendran en cuenta tanto en cuadros como gráficos la siguiente nomenclatura**:
+**Para simplificar la visualización de los datos, se tendrán en cuenta tanto en cuadros como gráficos la siguiente nomenclatura:**
+
  - NOR-Hombres: cantidad de inmigrantes masculinos altamente cualificados que ingresaron a Noruega en el año 2010.
+ 
  - NOR-Mujeres: cantidad de inmigrantes femeninos altamente cualificados que ingresaron a Noruega en el año 2010.
+ 
  - US-Mujeres: cantidad de inmigrantes femeninos altamente cualificados que ingresaron a Estados Unidos en el año 2010.
+ 
  - US-Hombres: cantidad de inmigrantes masculinos altamente cualificados que ingresaron a Estados Unidos en el año 2010.
 
 
@@ -162,30 +162,28 @@ stats <- stargazer(as.data.frame(Base), type = "text",
 
 En primer lugar, cabe decir que el número de observaciones para las variables dependientes de este estudio (migración de hombres y mujeres para Noruega y Estados Unidos) es 196. En cuanto a las variables independientes, es decir, corrupción, IDH y desempleo, no se tiene el mismo número de observaciones. La variable que tiene más valores faltantes es la relacionada con el desempleo (con 126 valores), seguida a esta, se encuentra el índice de desarrollo humano con 40 valores faltantes y por último, la variable proxy de corrupción, que tiene 31 valores faltantes.
 
-Ahora, teniendo en cuenta la media, se puede decir que Estados Unidos tiene un flujo más grande de migración calificada que Noruega,  representando aproximadamente el 1% de la estadounidense. Además, se evidencia, para los dos países, que la migración altamente calificada femenina es mayor que la masculina. Por otro lado, el índice de percepción de corrupción muestra que en un escala de 0-10, que es la utilizada para el periodo de estudio (2010), captura una media global de 4. Sin embargo, para Estados Unidos se tiene un índice de corrupcion de 7.1 y para Noruega de 8.6.
+Ahora, teniendo en cuenta la media, se puede decir que Estados Unidos tiene un flujo más grande de migración calificada que Noruega,  representando aproximadamente el 1% de la estadounidense. Además, se evidencia, para los dos países, que la migración altamente cualificada femenina es mayor que la masculina. Por otro lado, el índice de percepción de corrupción muestra que en un escala de 0-10, que es la utilizada para el periodo de estudio (2010), captura una media global de 4. Sin embargo, para Estados Unidos se tiene un índice de corrupcion de 7.1 y para Noruega de 8.6.
 
-Por su parte, el índice de desarrollo humano, medido en una escala de 0-1. Para este caso, Estados Unidos tiene un índice más alto (0.916) que Noruega (0.940) y la media global es de 0.7. Ambos de los países en estudio estan catalogados como países con alto desarrollo Humano, al tener un valor mayor a 0.8. Por ultimo, no se conoce ni para Estados Unidos, ni para Noruega, la tasa de desempleo en el año 2010, en otras palabras, hacen parte de los valores faltantes.
+Por su parte, el índice de desarrollo humano está medido en una escala de 0-1. Para este caso, Estados Unidos tiene un índice más alto (0.916) que Noruega (0.940) y la media global es de 0.7. Ambos de los países en estudio estan catalogados como países con alto desarrollo Humano, al tener un valor mayor a 0.8. Por último, no se conoce ni para Estados Unidos, ni para Noruega, la tasa de desempleo en el año 2010, en otras palabras, hacen parte de los valores faltantes.
 
-En cuanto a la desviación estándar, esta nos indica que el número de migrantes altamente calificados, tanto para hombres como mujeres en Noruega, se desvía de la media aproximadamente 1000 personas. En Estados Unidos, la desviación estándar es mucho más amplia, con un promedio de 87000 personas.
+En cuanto a la desviación estándar, ésta nos indica que el número de migrantes altamente cualificados, tanto para hombres como mujeres en Noruega, se desvía de la media aproximadamente 1000 personas. En Estados Unidos, la desviación estándar es mucho más amplia, con un promedio de 87000 personas.
 
 Revisando esta estadística para las variables independientes, primero, se encuentra que el puntaje para el índice de corrupción se desvía de la media en 2.1 puntos; segundo, el puntaje para el índice desarrollo humano se desvía en 0.2 puntos en su escala y tercero la tasa de desempleo se desvía de su media en 5.4%.
 
 El valor mínimo para las variables dependientes es de 0, es decir, ninguna persona migró a Estados Unidos o Noruega desde otro país; el valor máximo para la migración hacia Noruega es mayor para los hombres (9940 de Polonia) que para las mujeres (6785 de Suecia). En Estados Unidos el máximo también es mayor para los hombres (675837 de México) que para las mujeres (672968 de Filipinas). No obstante, como se dijo anteriormente se tiene una media mayor para las mujeres que para los hombres.
 
-La variable proxy de corrupción tiene un valor mínimo de 1.1 en Somalia y un valor máximo de 9.3 en Dinamarca, Singapur y Nueva Zelanda. Por otro lado, el índice de desarrollo humano muestra un valor mínimo de 0.3 en Nigeria y uno máximo de 0.9 en Suiza y para la tasa de desempleo se tiene un mínimo de 0.4 en Qatar y un máximo de 26.8 en Lesoto
+La variable proxy de corrupción tiene un valor mínimo de 1.1 en Somalia y un valor máximo de 9.3 en Dinamarca, Singapur y Nueva Zelanda. Por otro lado, el índice de desarrollo humano muestra un valor mínimo de 0.3 en Nigeria y uno máximo de 0.9 en Suiza y para la tasa de desempleo se tiene un mínimo de 0.4 en Qatar y un máximo de 26.8 en Lesoto.
 
 Como última estadística descriptiva se tiene a los percentiles 25 y 75, también llamados cuartiles 1 y 3, respectivamente. El primero de estos muestra que el 25% de los datos a) de migración hacia Noruega es menor o igual aproximadamente a 6.7  personas, b) de migración hacia Estados Unidos es menor o igual a aproximadamente 221 personas, c) del índice de percepción de corrupción es menor o igual a 2.4, d) del índice de desarrollo humano es menor o igual a 0.5 y e) de la tasa de desempleo es menor o igual a 3.4. Por su parte, el cuartil 3 muestra que el 75% de los datos son iguales o menores a) en la migración hacia Noruega a aproximadamente 240 personas, b) en la migración hacia Estados Unidos a aproximadamente 27301 personas, c) en el índice de corrupción a 5.1 puntos, d) en el índice de desarrollo humano a 0.8 y e) en la tasa de desempleo a 9.8.
 
 # Punto 6
-Realicen un histograma y/o gráfico de barras, según se trate de una variable cuantitativa
-o categórica, para la variable dependiente y para la principal variable independiente.
-Las gráficas las deben realizar usando el paquete ggplot, y deben modificarlas en
-cuanto a número de bins, títulos, subtítulos, etiquetas de los ejes, escalas numéricas de
-los ejes y colores de una manera que permitan visualizar con claridad la información.
+
+Se realiza un histograma para la variable dependiente y para la principal variable independiente.
+Las gráficas se realizan usando el paquete ggplot.
 
 ### Variables dependientes
 
-Por la necesidad de realizar distintos modelos con 4 variables dependientes:
+Debido a la necesidad de realizar distintos modelos con 4 variables dependientes:
 
 $Y_1 , Y_2, Y_3, Y_4 $\
 
@@ -193,101 +191,109 @@ $Y_1 , Y_2, Y_3, Y_4 $\
 
 $ 1 + (log(196)/log(2)) = 9$ \
 
-La nomenclatura usada para expresar la cantidad de personas altamente cualificadas por país de destino y por genero será *No.Cualificados*. Adicionalmente, para reflejar el número de nacionalidades o de país de origen se usara el termino *Países*.
+La nomenclatura usada para expresar la cantidad de personas altamente cualificadas por país de destino y por genero será *No.Cualificados*. Adicionalmente, para reflejar el número de nacionalidades o de país de origen se usara el término *Países*.
 
 
 ```{r}
-a6 <- ggplot(data= Base, mapping = aes(
-  x=HighMenNor
-  ))+
-  geom_histogram(aes(HighMenNor), bins = 9)+
-    labs(title="NOR-Hombres", x= "No.Cualificados", y= "Países")
+a6 <- ggplot(data= Base, mapping = aes(x=HighMenNor))+
+  geom_histogram(aes(HighMenNor), bins = 9, fill = "darkgoldenrod1", color = "black")+
+    labs(title="NOR-Hombres", x= "No.Cualificados", y= "Países")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12))
 ```
 
 ```{r}
 b6 <- ggplot(data= Base, mapping = aes(
   x=HighWomNor,
   ))+
-  geom_histogram(aes(HighWomNor), bins = 9)+
-    labs(title="NOR-Mujeres", x= "No.Cualificados", y= "Países")
+  geom_histogram(aes(HighWomNor), bins = 9, fill = "darkolivegreen1", color = "black")+
+    labs(title="NOR-Mujeres", x= "No.Cualificados", y= "Países")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12))
 ```
 
 ```{r}
 c6 <- ggplot(data= Base, mapping = aes(
   x=HighMenUS,
   ))+
-  geom_histogram(aes(HighMenUS), bins = 9)+
-  labs(title="US-Hombres", x= "No.Cualificados", y= "Países")
+  geom_histogram(aes(HighMenUS), bins = 9, fill = "darkorange", color = "black")+
+  labs(title="US-Hombres", x= "No.Cualificados", y= "Países")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12))
 ```
-
+```
 ```{r}
 d6 <- ggplot(data= Base, mapping = aes(
-  x=HighWomUS,
-  ))+
-  geom_histogram(aes(HighWomUS), bins = 9)+
-  labs(title="US-Mujeres", x= "No.Cualificados", y= "Países" , caption = "Fuente=Instituto de Investigación Laboral (IAB)")
+  x=HighWomUS))+
+  geom_histogram(aes(HighWomUS), bins = 9, fill = "darkseagreen2", color = "black" )+
+  labs(title="US-Mujeres", x= "No.Cualificados", y= "Países" , caption = "Fuente: Instituto de Investigación Laboral (IAB)")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12))
 ```
 
-Uniendo las distitans gráficas obtenemos:
+
+Uniendo las distintas gráficas obtenemos:
 
 ```{r}
 ggarrange(a6, b6, c6, d6)
 ```
 
-Para los 2 países y los 2 generos evidenciamos una relación similar por no decir igual. Donde no hay una discrimnación por sexo en cuanto a distribución de los datos tanto para Noruega como para los Estados Unidos.
+Para los 2 países y los 2 géneros evidenciamos una relación similar, por no decir igual. Donde no hay una discriminación por sexo en cuanto a distribución de los datos, tanto para Noruega como para los Estados Unidos.
 
-Y algo quizas más relevante es que hay una concentración grande de los datos en los 4 escenarios (Hombre-Noruega, Mujer-Noruega, Hombre-Estados Unidos y Mujer-Estados Unidos) de más de 150 países de origen o nacionalidad en la cual hubo o 0 de personas altamente cualificadas que inmigraron a estos dos países o fueron pocas.
+Y algo quizas más relevante es que hay una concentración grande de los datos en los 4 escenarios (Hombre-Noruega, Mujer-Noruega, Hombre-Estados Unidos y Mujer-Estados Unidos) de más de 150 países de origen o nacionalidad en la cual hubo 0 personas altamente cualificadas que inmigraron a estos dos países o fueron pocas.
 
 Se encuentran una excepciones que se visualizan casi como lineas en los 4 gráficos.
 
 ### Variable Independiente
 
 ```{r}
-ggplot(data= Base, mapping = aes(
-  x=Development))+
-  geom_histogram(aes(Development), bins = 15, fill= "light blue")+
-  labs(title="Indice de Desarrollo Humano", x= "Indice de desarrollo humano", y= "Países" , caption = "Fuente= UNESCO Institute for Statistics")
-
-
+ggplot(data= Base, mapping = aes(x=Development))+
+  geom_histogram(aes(Development), bins = 15, fill= "lightblue", color = "black")+
+  labs(title="Índice de Desarrollo Humano", x= "Índice de desarrollo humano", y= "Países" , caption = "Fuente: UNESCO Institute for Statistics")+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12))
 ```
 
 Para el caso del índice de Desarrollo Humano se encuenta una distribución "trimodal", aunque tiende un poco más a una bimodal con un grupo exceptuado.
 
-Esto remarca 3 bloques: países de ingresos bajos que ocupan la primera campana, países de ingreso medio o economías emergentes que ocupan la segunda campana y son la mayoría y por último un grupo exceptuado de estás dos campanas o bien una tercera campana empinada economías avanzadas (ingresos altos) con altos índices de desarrollo humano.
+Esto remarca 3 bloques: países de ingresos bajos que ocupan la primera campana, países de ingreso medio o economías emergentes que ocupan la segunda campana, que son la mayoría, y por último un grupo exceptuado de estás dos campanas o bien una tercera campana empinada referente a economías avanzadas (ingresos altos) con altos índices de desarrollo humano.
 
-#Punto 7
-Para las variables cuantitativas (continuas y discretas), calculen la correlación entre
-cada pareja de variables y presenten estas correlaciones en una matriz de correlaciones.
-Para las variables categóricas hagan una tabla cruzada para cada par de variables. En
-ambos casos, comente sobre los resultados más relevantes.
+# Punto 7
+
+Para las variables cuantitativas (continuas y discretas), se calcula la correlación entre
+cada pareja de variables y se presentan estas correlaciones en una matriz de correlaciones.
 
 ```{r}
 PNor <- Base %>% select(c("HighMenNor", "HighWomNor", "Corruption","Development", "Unemployment"))
-ggpairs(PNor)
+ggpairs(PNor)+
+    theme_grey()+
+    theme(strip.text = element_text(family = "serif", face = "bold.italic", size = 9), strip.background = element_rect(fill="mistyrose", linetype="blank"), panel.grid = element_blank(), text=element_text(family="serif"), axis.text.x = element_text(angle = 30, hjust = 0.9, size = 10))
 ```
 
 Lo que salta a primera vista es la fuerte correlación que se presenta entre *HigMenNor* y *HighWomNor* que índican la cantidad de inmigrantes masculinos y femeninos respectivamente, que son altamente cualificados y viajaron a Noruega en el año 2010 con una correlación de 0.87, muy cercana a 1.
 
-Con ello podemos inferir que las brechas en cuanto a fuga de cerebros no es sutancial, pues dadas unas condiciones iniciales de los países tanto de origen como el de destino que en este caso es el de Noruega.
+Con ello podemos inferir que las brechas en cuanto a fuga de cerebros no es sustancial, pues están dadas por unas condiciones iniciales de los países tanto de origen como el de destino, que en este caso es el de Noruega.
 
-Otro dato que es inferible inclusive sin los datos es los estandares de corrupción medido en el Índice de Percepción de Corrupción y el nivel de desarrollo medido en el Índice de Desarrollo Humano. El primero con una escala de 0 a 100, donde 100 se percibe como el menos corrupto y con mayor transparencia, mostrando que tener un buen puntaje está correlacionado de igual manera con tener un IDH alto. 
+Otro dato que es inferible inclusive sin los datos es el estándar de corrupción medido en el Índice de Percepción de Corrupción y el nivel de desarrollo medido en el Índice de Desarrollo Humano. El primero con una escala de 0 a 10, donde 10 se percibe como el menos corrupto y con mayor transparencia, mostrando que tener un buen puntaje está correlacionado de igual manera con tener un IDH alto. 
 
-Consecuentemente hay correlación positiva pero debíl de corrupción (mejor puntaje) tanto hombres como mujeres prefieren inmigrar a países como Noruega relacionandose con quizas que pueden desarrollar su parte academicá y de así desenvolver su carrera laboral en el exterior.
+Consecuentemente hay una correlación positiva pero débil de corrupción (mejor puntaje). Tanto hombres como mujeres prefieren inmigrar a países como Noruega relacionandose quizás con el deseo de desarrollarse academicamente y desenvolver su carrera laboral en el exterior.
 
 Por último, el desempleo tiene una correlación casi nula del 0.06 y el 0.048 con la inmigración tanto de hombres como de mujeres a Noruega.
 
 ```{r}
 PUS <- Base %>% select(c("HighMenUS", "HighWomUS", "Corruption","Development", "Unemployment"))
-ggpairs(PUS)
+ggpairs(PUS)+
+   theme_classic()+
+  theme(strip.text = element_text(family = "serif", face = "bold.italic", size = 9), strip.background = element_rect(fill="turquoise", linetype="blank"), text=element_text(family="serif"), axis.text.x = element_text(angle = 30, hjust = 0.9, size = 10))
 ```
 
-A diferencia con Noruega como destino de mano de obra altamente cualificada, Estados Unidos reduce la brecha mínima que existia en al caso anteriormente detalladao donde la correlación era de 0.87 y entes caso llegas hasta un 0.96. No obstante, hasta este punto no se puede asegurar si la brecha vaya en favor de algún genero.
+A diferencia con Noruega como destino de mano de obra altamente cualificada, Estados Unidos reduce la brecha mínima que existia en al caso anteriormente detallado, donde la correlación era de 0.87 y en este caso llega hasta un 0.96. No obstante, hasta este punto no se puede asegurar si la brecha favorezca algún género.
 
-No obstante, de manera curiosa la correlación por parte del índice de Percepción de Corrupción muestra una correlación si bien insignificante, pero negativa de -0.021 para hombres y de -0.009. Sucede lo mismo con la variable del desempleo donde antes era positiva y con una correlación muy pequeña, en este caso se vuelve negativa pero sigue siendo pequea de -0.05 y -0.03 respectivamente.
+No obstante, de manera curiosa por parte del índice de Percepción de Corrupción se muestra una correlación si bien insignificante, negativa de -0.021 para hombres y de -0.009. Sucede lo mismo con la variable del desempleo donde antes era positiva y con una correlación muy pequeña, en este caso se vuelve negativa pero sigue siendo pequeña de -0.05 y -0.03 respectivamente.
 
 # Punto 8
 
-Realicen una gráfica que les permita relacionar la variable dependiente y la principal variable independiente de interés. Si tienen varias variables independientes de interés, realicen una grpafica para mostrar la relación entre cada una de estas variables y la variable dependiente. Realicen las transformaciones en las variables que consideren necesarias para mostrar de mejor manera la información en estas gráficas. Las gráficas las deben realizar usando el paquete *ggplot*, y deben modificar los títulos, etiquetas de los ejes, escalas numéricas de los ejes y colores de una manera que permitan visualizar con claridad la información. Siga las siguientes recomendaciones:
+Se realiza una gráfica que permite relacionar la variable dependiente y la principal variable independiente de interés. Como se tienen varias variables independientes de interés, se realiza una gráfica para mostrar la relación entre cada una de estas variables y la variable dependiente. Además, se realicen las transformaciones en las variables que consideren necesarias para mostrar de mejor manera la información en estas gráficas. Las gráficas se realizan usando el paquete *ggplot* y se siguen las siguientes recomendaciones:
 
  - Sí las dos variables son cuantitativas el gráfico debe ser un diagrama de dispersión.
  - Sí las dos variables son categóricas el gráfico debe ser un gráfico de barras que permita visualizar las dos variables.
@@ -298,55 +304,63 @@ Poseemos 4 variables dependientes seccionadas en Noruega y Estados Unidos las cu
 ```{r}
 a8 <- ggplot(data = Base, 
        mapping = aes(x = Development, y = HighMenUS)) +
-  geom_point(color = "blue") +
+  geom_point(color = "coral", shape = 19, alpha = 0.7, size = 4) +
   scale_y_continuous(labels = label_number()) +
-  labs(subtitle = "Dispersograma US-Hombres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")
+  labs(title = "Dispersograma US-Hombres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
+  theme_pander()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12), axis.text = element_text(face = "italic", family = "serif", size = 12))
 ```
 
 ```{r}
 b8 <- ggplot(data = Base, 
        mapping = aes(x = Development, y = HighWomUS)) +
-  geom_point(color = "red") +
-  scale_y_continuous(labels = label_number()) +
-  labs(subtitle = "Dispersograma US-Mujeres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")
+  geom_point(color = "cornflowerblue", shape = 19, alpha = 0.7, size = 4) +
+  labs(title = "Dispersograma US-Mujeres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
+  scale_y_continuous(labels = label_number())+
+  theme_pander()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12), axis.text = element_text(face = "italic", family = "serif", size = 12))
 ```
 
 ```{r}
 c8 <- ggplot(data = Base, 
        mapping = aes(x = Development, y = HighWomNor)) +
-  geom_point(color = "red") +
+  geom_point(color = "olivedrab1", shape = 19, alpha = 0.7, size = 4) +
   scale_y_continuous(labels = label_number()) +
-  labs(subtitle = "Dispersograma NOR-Mujeres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")
+  labs(title = "Dispersograma NOR-Mujeres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
+  theme_pander()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12), axis.text = element_text(face = "italic", family = "serif", size = 12))
 ```
 
 ```{r}
 d8 <- ggplot(data = Base, 
-       mapping = aes(x = Development, y = HighMenNor)) +
-  geom_point(color = "blue") +
-  scale_y_continuous(labels = label_number()) +
-  labs(subtitle = "Dispersograma NOR-Hombres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")
+         mapping = aes(x = Development, y = HighMenNor)) +
+    geom_point(color = "plum2", shape = 19, alpha = 0.7, size = 4) +
+    scale_y_continuous(labels = label_number()) +
+    labs(title = "Dispersograma NOR-Hombres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
+    theme_pander()+
+    theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12), axis.text = element_text(face = "italic", family = "serif", size = 12))
 ```
 
 ```{r}
 ggarrange(a8,b8,c8,d8)
 ```
 
-Visualmente encontramos respuesta a la pregunta que se termino planteando en el punto anterior sobre la breca que existia entre hombres y mujeres altamente cualificados para migrar a Noruega y a Estados Unidos, donde la primera contaba con un 0,87 y la segunda con un 0,96.
+Visualmente encontramos respuesta a la pregunta que se termino planteando en el punto anterior sobre la brecha que existia entre hombres y mujeres altamente cualificados para migrar a Noruega y a Estados Unidos, donde la primera contaba con un 0,87 y la segunda con un 0,96.
 
-En el caso de Estados Unidos el dispersograma muestra una convergencia del comportamiento de inmigración masculina y femenina hacía este país. Sin embargo en el caso Noruego, las mujeres altamente cualificadas tienen un mayor flujo migratorio dado cualquier nivel de desarrollo del país de origen. La única excepción a la regla es una nacionalidad de hombres que para el 2010 hubieron cerca de 10.000 inmigrantes masculinos a Noruega.
+En el caso de Estados Unidos el dispersograma muestra una convergencia del comportamiento de inmigración masculina y femenina hacía este país. Sin embargo en el caso Noruego, las mujeres altamente cualificadas tienen un mayor flujo migratorio dado cualquier nivel de desarrollo del país de origen. La única excepción a la regla es una nacionalidad de hombres que para el 2010 se acercó a 10.000 inmigrantes masculinos a Noruega.
 
-Esto demuestra la razón inicial de poner a Noruega en comparación con Estados Unidos y es que su seleccipon se baso en que está colocado como un referente en eliminaciónde brechas de genero y uno de los mejores países para vivir siendo mujer tanto en la revista Britanica The Economist como el Gender Index de National Geographic.
+Esto demuestra la razón inicial de poner a Noruega en comparación con Estados Unidos y es que su selección se basó en que está posicionado como un referente en eliminación de brechas de género y uno de los mejores países para vivir siendo mujer tanto en la revista Britanica The Economist como el Gender Index de National Geographic.
 
 # Punto 9
 
-Usando la información presentada en las preguntas 6 a 9, ¿qué concluyen sobre la distribución de sus varaibles de interés y sobre la relación entre estas variables? Responda esta pregunta en al menos tres parrafos.
+Usando la información presentada en las preguntas 6 a 9, ¿qué se concluye sobre la distribución de las varaibles de interés y sobre la relación entre estas variables?
 
-Se evidencia las grandes brechas de desarrollo entre países y oportunidades de acceso para convertirse en mano de obra altamente cualificada. Primeramente, se muestra que para el analisis de Estados Unidos y Noruega como países receptores de está mano de obra altamente cualificada y distinguiendo por genero, hay una gran concentración de pocos inmigrantes o directamente la carencia de estos hacía los dos países analizados.
+Se evidencian las grandes brechas de desarrollo entre países y oportunidades de acceso para convertirse en mano de obra altamente cualificada. Primeramente, se muestra que para el análisis de Estados Unidos y Noruega como países receptores de está mano de obra altamente cualificada y distinguiendo por género, hay una gran concentración de pocos inmigrantes o directamente la carencia de estos hacía los dos países analizados.
 
-Conjuntamente se evidencia esa triple división en desarrollo humano que puede imposibilitar lo relatado en el parrafo anterior, ya que los países de ingresos bajos y medios son mayoría.
+Conjuntamente se evidencia esa triple división en desarrollo humano que puede imposibilitar lo relatado en el párrafo anterior, ya que los países de ingresos bajos y medios son mayoría.
 
-Un segundo detalle para evidenciar se da en las correlaciones de las variables, en el caso de que no hay una discrimanción por sexo independiente del destino, pero si existe una brecha en la cual dadas unas condiciones iniciales las mujeres se ven más incentivadas a inmigrar como mano de obra altamente cualifcada.
+Un segundo detalle para evidenciar se da en las correlaciones de las variables, el caso de que no hay una discriminación por sexo independiente del destino, pero si existe una brecha en la cual dadas unas condiciones iniciales las mujeres se ven más incentivadas a inmigrar como mano de obra altamente cualifcada.
 
-Destacando en noruega que independientemente de niveles de desarrollo de paíse de origen inmigran más a Noruega que los hombres cosa que se había mencionado siendo este país uno de los mejores posesionados tanto en un top de los mejores países para ser mujer tanto de The Economist como de National Geographic. 
+Destacando en Noruega que, independientemente de los niveles de desarrollo de país de origen, inmigran más a Noruega que los hombres cosa que se había mencionado siendo este país uno de los mejores posesionados tanto en un top de los mejores países para ser mujer tanto de The Economist como de National Geographic. 
 
 
