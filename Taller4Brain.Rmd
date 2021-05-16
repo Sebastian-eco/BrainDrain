@@ -308,7 +308,7 @@ a8 <- ggplot(data = Base,
   scale_y_continuous(labels = label_number()) +
   labs(title = "Dispersograma US-Hombres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
   theme_pander()+
-  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12), axis.text = element_text(face = "italic", family = "serif", size = 12))
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 12), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 10), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 10), axis.text = element_text(face = "italic", family = "serif", size = 12))
 ```
 
 ```{r}
@@ -318,7 +318,7 @@ b8 <- ggplot(data = Base,
   labs(title = "Dispersograma US-Mujeres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
   scale_y_continuous(labels = label_number())+
   theme_pander()+
-  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12), axis.text = element_text(face = "italic", family = "serif", size = 12))
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 12), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 10), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 10), axis.text = element_text(face = "italic", family = "serif", size = 12))
 ```
 
 ```{r}
@@ -328,7 +328,7 @@ c8 <- ggplot(data = Base,
   scale_y_continuous(labels = label_number()) +
   labs(title = "Dispersograma NOR-Mujeres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
   theme_pander()+
-  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12), axis.text = element_text(face = "italic", family = "serif", size = 12))
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 12), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 10), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 10), axis.text = element_text(face = "italic", family = "serif", size = 12))
 ```
 
 ```{r}
@@ -338,7 +338,7 @@ d8 <- ggplot(data = Base,
     scale_y_continuous(labels = label_number()) +
     labs(title = "Dispersograma NOR-Hombres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
     theme_pander()+
-    theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12), axis.text = element_text(face = "italic", family = "serif", size = 12))
+    theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 12), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 10), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 10), axis.text = element_text(face = "italic", family = "serif", size = 12))
 ```
 
 ```{r}
