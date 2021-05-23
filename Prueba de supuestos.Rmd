@@ -1,0 +1,171 @@
+---
+title: "Supuestos"
+author: "Sebastián"
+date: "23/5/2021"
+output: html_document
+---
+
+
+```{r}
+library(tidyverse)
+library(readxl)
+library(scales)
+library(ggpubr)
+library(stargazer)
+library(GGally)
+library(ggthemes)
+library(tseries)
+library(lmtest)
+```
+
+
+```{r setup, include=FALSE}
+#Cargar base de datos
+NorMen <- read_excel("datos/iabbd_8010_v1 (2).xls", 
+                            sheet = "NOR-Men")
+
+NorWom <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "NOR-Women")
+
+USMen <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "USA-Men")
+
+USWom <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "USA-Women")
+HDI <- read_csv("datos/Human Development Index (HDI) (1).csv", 
+                  skip = 5)
+
+CPI <- read_delim("datos/data_csv.csv", delim = ",")
+
+Unem <- read_excel("datos/API_SL.UEM.TOTL.ZS_DS2_es_excel_v2_2253098.xls",
+                   sheet = "Data")
+# MODIFICAR
+
+# Índice de Percepción de Corrupción 
+
+CPI <- CPI %>% select(c("Jurisdiction", "2010"))
+
+CPI <- rename(CPI, Country = "Jurisdiction", Corruption = "2010")
+
+# Índice de Desarrollo  Humano
+
+HDI <- HDI %>% select(c("Country", "2010"))
+
+HDI <- rename(HDI, Development = "2010")
+
+# Desempleo
+
+Unem <- Unem %>% select(c("Data Source", "...55"))
+
+Unem <- rename(Unem, Country = "Data Source", Unemployment = "...55")
+
+Unem <- Unem[-c(1,2,3),]
+
+# Noruega Hombres
+
+NorMen <- NorMen %>% select(c("Norway", "...29"))
+
+NorMen <- rename(NorMen, Country = "Norway", HighMenNor = "...29")
+
+NorMen <-  NorMen[-c(1,2,3),]
+
+# Noruega Mujeres 
+
+NorWom <- NorWom %>% select(c("Norway", "...29"))
+
+NorWom <- rename(NorWom, Country = "Norway", HighWomNor = "...29")
+
+NorWom <-  NorWom[-c(1,2,3),]
+
+# Estados Unidos Hombres
+
+USMen <- USMen %>% select(c("United States", "...29"))
+
+USMen <- rename(USMen, Country = "United States", HighMenUS = "...29")
+
+USMen <-  USMen[-c(1,2,3),]
+
+# Estados Unidos Mujeres
+
+USWom <- USWom %>% select(c("United States", "...29"))
+
+USWom <- rename(USWom, Country = "United States", HighWomUS = "...29")
+
+USWom <-  USWom[-c(1,2,3),]
+
+# Unión de base de datos
+
+Union1 <- left_join(NorMen,NorWom, by = "Country") 
+
+Union2 <- left_join(USWom, USMen, by ="Country")
+
+UnionY <- left_join(Union1, Union2, by = "Country")
+
+Union3 <- left_join(CPI, HDI, by = "Country")
+
+UnionX <- left_join(Union3, Unem, by = "Country")
+
+Base <- left_join(UnionY, UnionX, by = "Country")
+
+# Modificación de clase
+
+base <- as.data.frame(sapply(Base[,2:8],as.numeric))
+
+Base <- cbind(Base[,1],base)
+
+
+```
+
+
+```{r setup, include=FALSE}
+reg1<- lm(HighMenNor ~ Development + Corruption + Unemployment, data = Base)
+
+reg2<- lm(HighWomNor ~ Development + Corruption + Unemployment, data = Base)
+
+reg3<- lm(HighWomUS ~ Development + Corruption + Unemployment, data = Base)
+
+reg4 <- lm(HighMenUS ~ Development + Corruption + Unemployment, data = Base)
+```
+
+```{r}
+res1 <- reg1$residuals
+
+res2 <- reg2$residuals
+
+res3 <- reg3$residuals
+
+res4 <- reg4$residuals
+```
+
+### Test de Normalidad
+
+```{r}
+jarque.bera.test(res1)
+jarque.bera.test(res2)
+jarque.bera.test(res3)
+jarque.bera.test(res4)
+```
+
+### Homocedasticidad
+
+Brush Pagan
+
+```{r}
+bptest(reg1)
+bptest(reg2)
+bptest(reg3)
+bptest(reg4)
+
+```
+
+### No autocorrelación 
+
+Prueba Durbin Watson
+
+```{r}
+dwtest(reg1)
+dwtest(reg2)
+dwtest(reg3)
+dwtest(reg4)
+```
+
