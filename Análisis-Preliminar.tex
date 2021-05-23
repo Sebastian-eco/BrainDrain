@@ -1,0 +1,652 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{lmodern}
+\usepackage{amsmath}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+  \usepackage{amssymb}
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Análisis Preliminar},
+  pdfauthor={Nathalie Bareño, Sebastián Rincón y Karen Vargas},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{Análisis Preliminar}
+\author{Nathalie Bareño, Sebastián Rincón y Karen Vargas}
+\date{24 de mayo}
+
+\begin{document}
+\maketitle
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.0 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.3     v purrr   0.3.4
+## v tibble  3.0.5     v dplyr   1.0.3
+## v tidyr   1.1.2     v stringr 1.4.0
+## v readr   1.4.0     v forcats 0.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(readxl)}
+\FunctionTok{library}\NormalTok{(scales)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Attaching package: 'scales'
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:purrr':
+## 
+##     discard
+\end{verbatim}
+
+\begin{verbatim}
+## The following object is masked from 'package:readr':
+## 
+##     col_factor
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggpubr)}
+\FunctionTok{library}\NormalTok{(stargazer)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Please cite as:
+\end{verbatim}
+
+\begin{verbatim}
+##  Hlavac, Marek (2018). stargazer: Well-Formatted Regression and Summary Statistics Tables.
+\end{verbatim}
+
+\begin{verbatim}
+##  R package version 5.2.2. https://CRAN.R-project.org/package=stargazer
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(GGally)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'GGally':
+##   method from   
+##   +.gg   ggplot2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggthemes)}
+\FunctionTok{library}\NormalTok{(tseries)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Registered S3 method overwritten by 'quantmod':
+##   method            from
+##   as.zoo.data.frame zoo
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(lmtest)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Loading required package: zoo
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Attaching package: 'zoo'
+\end{verbatim}
+
+\begin{verbatim}
+## The following objects are masked from 'package:base':
+## 
+##     as.Date, as.Date.numeric
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(modelsummary)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{pregunta-de-investigaciuxf3n}{%
+\section{Pregunta de investigación}\label{pregunta-de-investigaciuxf3n}}
+
+\emph{¿En qué medida el manejo de políticas económicas para el
+desarrollo afecta la fuga de mano de obra cualificada?}
+
+\hypertarget{descripciuxf3n-de-los-modelos-a-estimar}{%
+\section{Descripción de los modelos a
+estimar}\label{descripciuxf3n-de-los-modelos-a-estimar}}
+
+En el trabajo se usará el método de los Mínimos Cuadrados Ordinarios,
+este consiste en cuatro regresiones, con el fin de saber el impacto que
+tienen cada una de las variables entre hombres y mujeres en Estados
+Unidos y Noruega respectivamente. Cada regresión cuenta con tres
+variables independientes: Índice de Desarrollo Humano, Índice de
+Percepción de Corrupción y Desempleo.
+
+Detalladamente, por parte de Estados Unidos en la primera regresión se
+quiere ver el impacto de las variables independientes anteriormente
+mencionadas con la migración de hombres con alto capital humano hacía
+los Estados Unidos, en la segunda el impacto de las variables
+independientes con la migración de mujeres con alto capital humano hacía
+los Estados Unidos. Con Noruega se busca de igual manera saber el
+impacto de las variables independientes con diferenciación del género.
+
+\hypertarget{resultados-de-los-modelos-estimados}{%
+\subsection{Resultados de los modelos
+estimados}\label{resultados-de-los-modelos-estimados}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reg1}\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(HighMenNor }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Development }\SpecialCharTok{+}\NormalTok{ Corruption }\SpecialCharTok{+}\NormalTok{ Unemployment, }\AttributeTok{data =}\NormalTok{ Base)}
+\FunctionTok{summary}\NormalTok{(reg1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = HighMenNor ~ Development + Corruption + Unemployment, 
+##     data = Base)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -310.95 -197.86  -96.74  -12.09 2384.68 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)
+## (Intercept)   -80.438    230.748  -0.349    0.729
+## Development   773.735    480.387   1.611    0.112
+## Corruption    -56.900     42.228  -1.347    0.183
+## Unemployment   -2.396      9.644  -0.248    0.805
+## 
+## Residual standard error: 416.9 on 61 degrees of freedom
+##   (131 observations deleted due to missingness)
+## Multiple R-squared:  0.04287,    Adjusted R-squared:  -0.004201 
+## F-statistic: 0.9108 on 3 and 61 DF,  p-value: 0.4412
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reg2}\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(HighWomNor }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Development }\SpecialCharTok{+}\NormalTok{ Corruption }\SpecialCharTok{+}\NormalTok{ Unemployment, }\AttributeTok{data =}\NormalTok{ Base)}
+\FunctionTok{summary}\NormalTok{(reg2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = HighWomNor ~ Development + Corruption + Unemployment, 
+##     data = Base)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -340.19 -198.79 -101.77  -13.01 2009.62 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)   -85.381    234.596  -0.364   0.7172  
+## Development   864.401    488.398   1.770   0.0817 .
+## Corruption    -60.632     42.932  -1.412   0.1630  
+## Unemployment   -4.083      9.804  -0.416   0.6786  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 423.9 on 61 degrees of freedom
+##   (131 observations deleted due to missingness)
+## Multiple R-squared:  0.0513, Adjusted R-squared:  0.004644 
+## F-statistic:   1.1 on 3 and 61 DF,  p-value: 0.3563
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reg3}\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(HighWomUS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Development }\SpecialCharTok{+}\NormalTok{ Corruption }\SpecialCharTok{+}\NormalTok{ Unemployment, }\AttributeTok{data =}\NormalTok{ Base)}
+\FunctionTok{summary}\NormalTok{(reg3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = HighWomUS ~ Development + Corruption + Unemployment, 
+##     data = Base)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -60063 -29602 -19528  -1969 498053 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)    -24239      45391  -0.534   0.5953  
+## Development    164225      94498   1.738   0.0873 .
+## Corruption     -10732       8307  -1.292   0.2013  
+## Unemployment     -754       1897  -0.397   0.6924  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 82010 on 61 degrees of freedom
+##   (131 observations deleted due to missingness)
+## Multiple R-squared:  0.04846,    Adjusted R-squared:  0.001663 
+## F-statistic: 1.036 on 3 and 61 DF,  p-value: 0.3833
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{reg4 }\OtherTok{\textless{}{-}} \FunctionTok{lm}\NormalTok{(HighMenUS }\SpecialCharTok{\textasciitilde{}}\NormalTok{ Development }\SpecialCharTok{+}\NormalTok{ Corruption }\SpecialCharTok{+}\NormalTok{ Unemployment, }\AttributeTok{data =}\NormalTok{ Base)}
+\FunctionTok{summary}\NormalTok{(reg4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = HighMenUS ~ Development + Corruption + Unemployment, 
+##     data = Base)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -57886 -29653 -20325  -5272 632896 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)
+## (Intercept)     -7404      51856  -0.143    0.887
+## Development    132458     107958   1.227    0.225
+## Corruption      -8727       9490  -0.920    0.361
+## Unemployment    -1202       2167  -0.555    0.581
+## 
+## Residual standard error: 93690 on 61 degrees of freedom
+##   (131 observations deleted due to missingness)
+## Multiple R-squared:  0.02762,    Adjusted R-squared:  -0.02021 
+## F-statistic: 0.5775 on 3 and 61 DF,  p-value: 0.632
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelos}\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\StringTok{"Modelo 1"} \OtherTok{=}\NormalTok{ reg1, }\StringTok{"Modelo 2"} \OtherTok{=}\NormalTok{ reg2, }\StringTok{"Modelo 3"} \OtherTok{=}\NormalTok{ reg3, }\StringTok{"Modelo 4"} \OtherTok{=}\NormalTok{ reg4)}
+ 
+\NormalTok{resumen }\OtherTok{\textless{}{-}} \FunctionTok{stargazer}\NormalTok{(modelos, }\AttributeTok{type =} \StringTok{"text"}\NormalTok{, }
+          \AttributeTok{out =} \StringTok{"tabla1.tex"}\NormalTok{, }
+          \AttributeTok{title =} \StringTok{"Tabla 1 {-} Resultados de los modelos estimados"}\NormalTok{,}
+          \AttributeTok{digits =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Tabla 1 - Resultados de los modelos estimados
+## ==========================================================================
+##                                           Dependent variable:             
+##                               --------------------------------------------
+##                               HighMenNor HighWomNor HighWomUS   HighMenUS 
+##                                  (1)        (2)        (3)         (4)    
+## --------------------------------------------------------------------------
+## Development                     773.7      864.4*   164,224.7*  132,458.4 
+##                                (480.4)    (488.4)   (94,498.4) (107,957.8)
+##                                                                           
+## Corruption                      -56.9      -60.6    -10,731.8   -8,726.7  
+##                                 (42.2)     (42.9)   (8,306.8)   (9,489.9) 
+##                                                                           
+## Unemployment                     -2.4       -4.1      -754.0    -1,202.0  
+##                                 (9.6)      (9.8)    (1,897.0)   (2,167.2) 
+##                                                                           
+## Constant                        -80.4      -85.4    -24,238.7   -7,404.5  
+##                                (230.7)    (234.6)   (45,391.1) (51,856.1) 
+##                                                                           
+## --------------------------------------------------------------------------
+## Observations                      65         65         65         65     
+## R2                               0.04       0.1        0.05       0.03    
+## Adjusted R2                     -0.004     0.005      0.002       -0.02   
+## Residual Std. Error (df = 61)   416.9      423.9     82,010.4   93,691.1  
+## F Statistic (df = 3; 61)         0.9        1.1        1.0         0.6    
+## ==========================================================================
+## Note:                                          *p<0.1; **p<0.05; ***p<0.01
+\end{verbatim}
+
+\hypertarget{gruxe1ficas-que-acompauxf1en-los-resultados}{%
+\section{Gráficas que acompañen los
+resultados}\label{gruxe1ficas-que-acompauxf1en-los-resultados}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{options}\NormalTok{(}\AttributeTok{scipen =} \DecValTok{999}\NormalTok{)}
+ 
+\FunctionTok{modelplot}\NormalTok{(modelos) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Resultados de los modelos"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_light}\NormalTok{()}\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{plot.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{hjust =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{family =} \StringTok{"serif"}\NormalTok{, }\AttributeTok{size =} \DecValTok{14}\NormalTok{), }\AttributeTok{axis.title.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"bold.italic"}\NormalTok{, }\AttributeTok{family =} \StringTok{"serif"}\NormalTok{, }\AttributeTok{size =} \DecValTok{11}\NormalTok{), }\AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"italic"}\NormalTok{, }\AttributeTok{family =} \StringTok{"serif"}\NormalTok{, }\AttributeTok{size =} \DecValTok{11}\NormalTok{), }\AttributeTok{legend.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{face =} \StringTok{"italic"}\NormalTok{, }\AttributeTok{family =} \StringTok{"serif"}\NormalTok{, }\AttributeTok{size =} \DecValTok{11}\NormalTok{), }\AttributeTok{legend.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{11}\NormalTok{, }\AttributeTok{face =} \StringTok{"bold"}\NormalTok{, }\AttributeTok{family =} \StringTok{"serif"}\NormalTok{))}\SpecialCharTok{+}
+  \FunctionTok{scale\_color\_brewer}\NormalTok{(}\AttributeTok{palette =} \StringTok{"Set3"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{Análisis-Preliminar_files/figure-latex/unnamed-chunk-3-1.pdf}
+
+\hypertarget{revisiuxf3n-de-los-principales-supuestos-de-los-modelos-estimados}{%
+\section{Revisión de los principales supuestos de los modelos
+estimados}\label{revisiuxf3n-de-los-principales-supuestos-de-los-modelos-estimados}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{res1 }\OtherTok{\textless{}{-}}\NormalTok{ reg1}\SpecialCharTok{$}\NormalTok{residuals}
+
+\NormalTok{res2 }\OtherTok{\textless{}{-}}\NormalTok{ reg2}\SpecialCharTok{$}\NormalTok{residuals}
+
+\NormalTok{res3 }\OtherTok{\textless{}{-}}\NormalTok{ reg3}\SpecialCharTok{$}\NormalTok{residuals}
+
+\NormalTok{res4 }\OtherTok{\textless{}{-}}\NormalTok{ reg4}\SpecialCharTok{$}\NormalTok{residuals}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{test-de-normalidad}{%
+\subsubsection{Test de normalidad}\label{test-de-normalidad}}
+
+Test Jarque-Bera
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{jarque.bera.test}\NormalTok{(res1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque Bera Test
+## 
+## data:  res1
+## X-squared = 980.26, df = 2, p-value < 0.00000000000000022
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{jarque.bera.test}\NormalTok{(res2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque Bera Test
+## 
+## data:  res2
+## X-squared = 316.42, df = 2, p-value < 0.00000000000000022
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{jarque.bera.test}\NormalTok{(res3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque Bera Test
+## 
+## data:  res3
+## X-squared = 1728.3, df = 2, p-value < 0.00000000000000022
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{jarque.bera.test}\NormalTok{(res4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Jarque Bera Test
+## 
+## data:  res4
+## X-squared = 3555.4, df = 2, p-value < 0.00000000000000022
+\end{verbatim}
+
+\hypertarget{homocedasticidad}{%
+\subsubsection{Homocedasticidad}\label{homocedasticidad}}
+
+Brush Pagan
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{bptest}\NormalTok{(reg1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  studentized Breusch-Pagan test
+## 
+## data:  reg1
+## BP = 3.5931, df = 3, p-value = 0.3089
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{bptest}\NormalTok{(reg2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  studentized Breusch-Pagan test
+## 
+## data:  reg2
+## BP = 3.7709, df = 3, p-value = 0.2873
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{bptest}\NormalTok{(reg3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  studentized Breusch-Pagan test
+## 
+## data:  reg3
+## BP = 0.26793, df = 3, p-value = 0.9659
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{bptest}\NormalTok{(reg4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  studentized Breusch-Pagan test
+## 
+## data:  reg4
+## BP = 0.17166, df = 3, p-value = 0.982
+\end{verbatim}
+
+\hypertarget{no-autocorrelaciuxf3n}{%
+\subsubsection{No autocorrelación}\label{no-autocorrelaciuxf3n}}
+
+Prueba Durbin Watson
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dwtest}\NormalTok{(reg1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Durbin-Watson test
+## 
+## data:  reg1
+## DW = 2.0449, p-value = 0.5779
+## alternative hypothesis: true autocorrelation is greater than 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dwtest}\NormalTok{(reg2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Durbin-Watson test
+## 
+## data:  reg2
+## DW = 1.8878, p-value = 0.3293
+## alternative hypothesis: true autocorrelation is greater than 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dwtest}\NormalTok{(reg3)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Durbin-Watson test
+## 
+## data:  reg3
+## DW = 1.8739, p-value = 0.309
+## alternative hypothesis: true autocorrelation is greater than 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dwtest}\NormalTok{(reg4)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+##  Durbin-Watson test
+## 
+## data:  reg4
+## DW = 1.9782, p-value = 0.4693
+## alternative hypothesis: true autocorrelation is greater than 0
+\end{verbatim}
+
+\hypertarget{dos-puxe1rrafos-con-un-anuxe1lisis-preliminar-de-los-resultados}{%
+\section{Dos párrafos con un análisis preliminar de los
+resultados}\label{dos-puxe1rrafos-con-un-anuxe1lisis-preliminar-de-los-resultados}}
+
+\end{document}

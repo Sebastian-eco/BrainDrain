@@ -1,0 +1,246 @@
+---
+title: "Análisis Preliminar"
+author: "Nathalie Bareño, Sebastián Rincón y Karen Vargas"
+date: "24 de mayo"
+output:
+  pdf_document: default
+  html_notebook: default
+---
+
+```{r, warning=FALSE}
+library(tidyverse)
+library(readxl)
+library(scales)
+library(ggpubr)
+library(stargazer)
+library(GGally)
+library(ggthemes)
+library(tseries)
+library(lmtest)
+library(modelsummary)
+```
+
+```{r setup, include=FALSE}
+#Cargar base de datos
+NorMen <- read_excel("datos/iabbd_8010_v1 (2).xls", 
+                            sheet = "NOR-Men")
+
+NorWom <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "NOR-Women")
+
+USMen <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "USA-Men")
+
+USWom <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "USA-Women")
+HDI <- read_csv("datos/Human Development Index (HDI) (1).csv", 
+                  skip = 5)
+
+CPI <- read_delim("datos/data_csv.csv", delim = ",")
+
+Unem <- read_excel("datos/API_SL.UEM.TOTL.ZS_DS2_es_excel_v2_2253098.xls",
+                   sheet = "Data")
+# MODIFICAR
+
+# Índice de Percepción de Corrupción 
+
+CPI <- CPI %>% select(c("Jurisdiction", "2010"))
+
+CPI <- rename(CPI, Country = "Jurisdiction", Corruption = "2010")
+
+# Índice de Desarrollo  Humano
+
+HDI <- HDI %>% select(c("Country", "2010"))
+
+HDI <- rename(HDI, Development = "2010")
+
+# Desempleo
+
+Unem <- Unem %>% select(c("Data Source", "...55"))
+
+Unem <- rename(Unem, Country = "Data Source", Unemployment = "...55")
+
+Unem <- Unem[-c(1,2,3),]
+
+# Noruega Hombres
+
+NorMen <- NorMen %>% select(c("Norway", "...29"))
+
+NorMen <- rename(NorMen, Country = "Norway", HighMenNor = "...29")
+
+NorMen <-  NorMen[-c(1,2,3),]
+
+# Noruega Mujeres 
+
+NorWom <- NorWom %>% select(c("Norway", "...29"))
+
+NorWom <- rename(NorWom, Country = "Norway", HighWomNor = "...29")
+
+NorWom <-  NorWom[-c(1,2,3),]
+
+# Estados Unidos Hombres
+
+USMen <- USMen %>% select(c("United States", "...29"))
+
+USMen <- rename(USMen, Country = "United States", HighMenUS = "...29")
+
+USMen <-  USMen[-c(1,2,3),]
+
+# Estados Unidos Mujeres
+
+USWom <- USWom %>% select(c("United States", "...29"))
+
+USWom <- rename(USWom, Country = "United States", HighWomUS = "...29")
+
+USWom <-  USWom[-c(1,2,3),]
+
+# Unión de base de datos
+
+Union1 <- left_join(NorMen,NorWom, by = "Country") 
+
+Union2 <- left_join(USWom, USMen, by ="Country")
+
+UnionY <- left_join(Union1, Union2, by = "Country")
+
+Union3 <- left_join(CPI, HDI, by = "Country")
+
+UnionX <- left_join(Union3, Unem, by = "Country")
+
+Base <- left_join(UnionY, UnionX, by = "Country")
+
+# Modificación de clase
+
+base <- as.data.frame(sapply(Base[,2:8],as.numeric))
+
+Base <- cbind(Base[,1],base)
+
+```
+
+
+# Pregunta de investigación
+
+*¿En qué medida el manejo de políticas económicas para el desarrollo afecta la fuga de mano de obra cualificada?*
+
+# Descripción de los modelos a estimar
+
+En el trabajo se usará el método de los Mínimos Cuadrados Ordinarios, este consiste en cuatro regresiones, con el fin de saber el impacto que tienen cada una de las variables entre hombres y mujeres en Estados Unidos y Noruega respectivamente. Cada regresión cuenta con tres variables independientes: Índice de Desarrollo Humano, Índice de Percepción de Corrupción y Desempleo. 
+
+Detalladamente, por parte de Estados Unidos en la primera regresión se quiere ver el impacto de las variables independientes anteriormente mencionadas con la migración de hombres con alto capital humano hacía los Estados Unidos, en la segunda el impacto de las variables independientes con la migración de mujeres con alto capital humano hacía los Estados Unidos. Con Noruega se busca de igual manera saber el impacto de las variables independientes con diferenciación del género.
+ - Modelo 1: Noruega Hombres
+ - Modelo 2: Noruega Mujeres
+ - Modelo 3: Estados Unidos Mujeres
+ - Modelo 4: Estados Unidos Hombres
+
+## Resultados de los modelos estimados
+
+Para estimar los modelos de manera no sesgada, se realizan las siguientes transformaciones en las variables desarrollo y corrupción.
+ - Desarrollo: para el Índice de Desarrollo Humano en el 2010 se calificaba del 0 a 1, con cifras de 3 decimales. Por lo cual, está variable se multiplica por 1000 para poder realizar el aumento en 1 milesima del desarrollo humano en el país de origen.
+ - Corrupción: para el Índice de Percepción de Corrupción en el 2010 se calificaba del 0 al 10, con una cifra de un decimal. Por lo cual, está variable se multiplica por 10 para poder realizar el aumento en 1 decima de la percepción de corrupción en el país de origen
+
+```{r}
+Base <- Base %>% mutate(Development = Development*1000, Corruption = Corruption*10)
+
+```
+
+
+```{r}
+reg1<- lm(HighMenNor ~ Development + Corruption + Unemployment, data = Base)
+summary(reg1)
+ 
+reg2<- lm(HighWomNor ~ Development + Corruption + Unemployment, data = Base)
+summary(reg2)
+ 
+reg3<- lm(HighWomUS ~ Development + Corruption + Unemployment, data = Base)
+summary(reg3)
+ 
+reg4 <- lm(HighMenUS ~ Development + Corruption + Unemployment, data = Base)
+summary(reg4)
+ 
+modelos<- list("Modelo 1" = reg1, "Modelo 2" = reg2, "Modelo 3" = reg3, "Modelo 4" = reg4)
+ 
+resumen <- stargazer(modelos, type = "text", 
+          out = "tabla1.tex", 
+          title = "Tabla 1 - Resultados de los modelos estimados",
+          digits = 1)
+```
+
+El coeficiente de desarrollo para las mujeres es estadísticamente significativo a un nivel de confianza al 90%, teniendo un valor p inferior a 0.1, esto implica que ante el aumento de 1 milesima en el Índice de Desarrollo Humano, la migración altamente cualificada se aumenta en 0.9 mujeres hacía noruega y 164.2 hacía los Estados Unidos, ceteris paribus.
+
+El resto de variables carecen de significancia estadística, sin embargo, todos los casos la mejoría en la percepción de la corrupción, es decir, un Estado más transparente, está negativamente relacionado con la migración hacía estos dos países y es indiferente al sexo.
+
+Para el caso del desempleo, se observa que ante el aumento de esté se encuentra negativamente asociado con la migración hacía estos dos países y es indiferente al sexo.
+
+El R cuadrado y el R ajustado son pequeños a causa de la variable de desempleo al tener varios datos faltantes redujo el tamaño de la muestra.
+
+
+# Gráficas que acompañen los resultados
+
+Para complementar el anterior inciso este gráfico.
+
+```{r}
+options(scipen = 999)
+ 
+modelplot(modelos) + labs(title = "Resultados de los modelos") +
+  theme_light()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 14), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 11), axis.text = element_text(face = "italic", family = "serif", size = 11), legend.text = element_text(face = "italic", family = "serif", size = 11), legend.title = element_text(size = 11, face = "bold", family = "serif"))+
+  scale_color_brewer(palette = "Set3")
+```
+
+# Revisión de los principales supuestos de los modelos estimados
+
+```{r setup, include=FALSE}
+res1 <- reg1$residuals
+
+res2 <- reg2$residuals
+
+res3 <- reg3$residuals
+
+res4 <- reg4$residuals
+```
+
+### Test de normalidad
+ 
+Test Jarque-Bera
+ 
+```{r}
+jarque.bera.test(res1)
+jarque.bera.test(res2)
+jarque.bera.test(res3)
+jarque.bera.test(res4)
+```
+
+Con el resultado de la prueba Jarque-Bera, el modelo presenta problemas de normalidad, al ser la hipotesis nula que pertenencen a una distribución normal.
+
+
+### Homocedasticidad
+
+Test Brush Pagan
+
+```{r}
+bptest(reg1)
+bptest(reg2)
+bptest(reg3)
+bptest(reg4)
+```
+
+Para el caso de la prueba Breush-Pagan lla hipótesis nula es que los datos son homocedasticos, con esto los valores P no permiten rechazar la hipótesis nula de homocedasticidad.
+
+Por ende, no se debe realizar un modelo con errores estandar robustos.
+
+### No autocorrelación 
+
+Prueba Durbin Watson
+
+```{r}
+dwtest(reg1)
+dwtest(reg2)
+dwtest(reg3)
+dwtest(reg4)
+```
+Para la prueba Durbin-Watson la hipótesis nula es de la no autocorrelación del error, por ende los valores P no permiten rechazar la hipótesis nula a ningúna significancia convencional (1%,5%,10%), por lo cumple el supuesto.
+
+
+# Dos párrafos con un análisis preliminar de los resultados
+
+
+
