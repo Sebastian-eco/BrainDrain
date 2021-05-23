@@ -242,5 +242,9 @@ Para la prueba Durbin-Watson la hipótesis nula es de la no autocorrelación del
 
 # Dos párrafos con un análisis preliminar de los resultados
 
+En cuanto a la significancia de los coeficientes para los cuatro modelos se encuentra que: para los dos modelos que corresponden a las mujeres, el índice de desarrollo humano es la única variable que resulta estadísticamente significativa. Es decir, se puede rechazar la hipótesis nula de que el coeficiente es igual a 0, en favor de la hipótesis alternativa de que el coeficiente es diferente de 0, pero únicamente a un nivel de significancia del 90%. 
+
+No obstante, las otras dos variables no son estadísticamente significativas al 90% de confianza, pero conllevan una correlación negativa, la cual puede ser explicada en que entre mayor tasa de desempleo las personas tendrían un menor ingreso disponible que les permitan capacitarse o emigrar. Para el caso de la corrupción, una mejoría en la percepción del manejo del Estado y sus instituciones, implicarían un menor incentivo para laborar en un país diferente al de origen. Por último, los supuestos del modelo se incumplen en el caso de normalidad, sin embargo, no posee ni problemas de no autocorrelación con el error y tampoco de homocedasticidad.
+
 
 
