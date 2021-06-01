@@ -1,0 +1,369 @@
+---
+title: "Entrega Final"
+author: "Nathalie Bareño, Sebastián Rincón y Karen Vargas"
+date: "31/5/2021"
+output:
+  word_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(readxl)
+library(scales)
+library(ggpubr)
+library(stargazer)
+library(GGally)
+library(ggthemes)
+library(tseries)
+library(lmtest)
+library(modelsummary)
+```
+
+# Pregunta de Investigación
+
+*¿En qué medida el manejo de políticas económicas para el desarrollo afecta la fuga de mano de obra cualificada?*
+
+# Introducción 
+
+El presente proyecto de investigación tiene como tema principal la migración de mano de obra altamente cualificada y los canales, relacionados al desarrollo de los países, que responden y dan lugar a esta migración. Para empezar, cabe aclarar cuál es su definición. La migración de mano de obra altamente cualificada ha sido sustituida por el concepto de “fuga de cerebros” o “brain drain”, en inglés. Este fenómeno comprende la salida de estudiantes y profesionales (personas capacitadas o talentosas) de su país de origen a otro país, motivada por conflictos o falta de oportunidades (OIM, 2006). 
+
+GLOSARIO SOBRE MIGRACIÓN (corteidh.or.cr)
+
+En este sentido, la circulación e intercambio de cerebros permite comprender la existencia de dinámicas, tanto en los países de origen como en los países de destino. Por ejemplo, para los países de origen, la “perdida” que representa la fuga de cerebros puede presentar al país como facilitador móvil de agentes altamente cualificados para atraer conocimiento, desarrollo científico y tecnológico y, por otro lado, para los países de destino, que han introducido reglamentaciones de selectividad de política migratoria, favorecen la recepción de mano de obra especializada y flexibilizan la contratación (Bermúdez Rico, 2020).
+
+n19a08.pdf (scielo.org.co)
+
+Asimismo, la fuga de cerebros da luces del nivel de desarrollo del país del que se emigra y al que se inmigra; de allí, surge el interés de esta investigación. Por lo tanto, se propone responder a la pregunta: ¿en qué medida el manejo de políticas económicas para el desarrollo afecta la fuga de mano de obra cualificada? Sin embargo, para identificar las políticas para el desarrollo que han sido consideradas como determinantes de la fuga de cerebros, se procederá a revisar algunas investigaciones previas sobre el tema en torno a las causas, consecuencias y el rol de las mujeres en la fuga de cerebros.
+Causas de la fuga de cerebros 
+
+En los países en desarrollo, Ngoma e Ismail (2013) consideran que las posibles causas de la fuga de cerebros son los factores de empuje y atracción. Los de empuje son malos indicadores de los países de origen como bajos salarios, ineficiencia gubernamental, corrupción y casos de abuso de los derechos humanos. Por su parte, los factores de atracción, que en su mayoría obedecen a características de economías avanzadas, son los mejores salarios, la educación con mayor cualidad y su factibilidad de acceso; la estabilidad política y las ayudas para las investigaciones. Además, encuentran que a) la disparidad de ingresos tiende a incentivar la migración, mientras que si aumentan los ingresos en el país de origen se desincentiva la migración, b) entre mayor población, las cuotas de migración disminuyen y c) la efectividad del gobierno aumenta los flujos migratorios, lo cual es contrario a lo que se esperaría (si hay un buen gobierno, las personas permanecen en el lugar).
+
+En África se encuentran algunas causas de la fuga de cerebros (Sefa & Asgharzadeh, 2002). Realizando una revisión histórica se evidencia una correlación directa entre las relaciones Norte-Sur, ya que las fugas actuales de capital humano y técnico altamente cualificado entre países se dan entre aquellos con lazos coloniales, de esclavitud y de relaciones desiguales Norte-Sur. 
+
+Por otro lado, a nivel regional, Ínce (2020) evalúa el poder del capital humano en el desarrollo. Se establece que la fuga de cerebros generalmente se da cuando la gente está en busca de mejorar su calidad de vida. Muchas veces la población que tiene el poder de emigrar de su país de origen tiene niveles educación altos y se van a un país en el que se encuentre una mejor educación, un mayor acceso a la tecnología y políticas más estables. Esta emigración de gente con mano de obra calificada que pertenece a un país de periferia y que se establece en un país desarrollado, afecta en una mayor medida a la brecha que hay entre países, ya que desacelera el crecimiento de los primeros.
+
+Generalmente, los países desarrollados conocen esta clase de beneficios económicos que trae la mano de obra calificada, por lo que crean políticas para facilitar la entrada a extranjeros con estas características. Por ende, se propicia una carrera de países desarrollados para atraer personas capaces de fomentar nuevas ideas e innovación (Ínce, 2020). Un gran ejemplo de uno de estos contextos es Silicon Valley, ya que es considerado como uno de los centros más importantes en la producción de nuevas ideas y desarrollo en el mundo.
+
+Por último, para considerar el papel de la corrupción sobre la migración altamente cualificada, Ariu y Squicciarini (2013) usan el índice de corrupción y estudian las diferencias en los flujos netos entre países. Se llega a la siguiente conclusión: los países altamente corruptos experimentan una pérdida neta de trabajadores altamente calificados. Esta correlación negativa y significativa establece que las personas altamente calificadas tienen más probabilidades de emigrar al extranjero si su país de origen es muy corrupto. 
+
+Por lo tanto, esta pérdida neta está impulsada por la falta de entrada como por el impulso de capital humano saliente. Es importante mencionar que, con esta investigación, se puede afirmar que hay otros factores, aparte de la corrupción, que se comportarían más como un obstáculo para las entradas que un incentivo para las salidas. 
+
+Consecuencias de la fuga de cerebros 
+
+Siguiendo la argumentación de Sefa & Asgharzadeh (2002), después de la fuga de cerebros africana, se formó una espiral ocasionada por la desigualdad entre países y la globalización hacía un escape del alto talento local que solo ayuda a empeorar las situaciones internas que comienza a alimentar una segunda fuga. 
+
+Por lo cual, según los autores, las maneras de disminuir la fuga de cerebros más allá de tratar de prohibir la fuga es la inversión y la mejora de la infraestructura de la nación para así brindar oportunidades de crecimiento locales tanto a nivel individual como colectivo. 
+
+Contrastando la idea que, para los países de la periferia, la fuga de cerebros es una perdida de capital humano. Portes y Celaya (2013) encuentran evidencia para decir que la gente que emigra a los países ricos vuelve a su país de origen muchas veces con más capital humano, lo que ayuda al crecimiento de este. Contrario a lo que establece la teoría. Por un lado, la teoría neoclásica trató de analizar este flujo de capital humano, sin embargo, se quedó rezagada ya que asumía que un inmigrante que tiene habilidades emigra hacia un país rico y no vuelve a su país de origen. Por otro lado, la teoría Neo-Marxista establece la relación entre modernización y la circulación de capital humano, en donde, los países en vía de desarrollo tratan de imitar los sistemas de educación e instituciones de los países ricos y desarrollados.
+
+Ahora, hay que considerar que a pesar de que varios jóvenes en las periferias tienen acceso a tecnología y educación, no hay una cantidad de campos cualificados suficientes para todos los jóvenes, así que deciden emigrar. Por el contrario, los profesionales que pueden poner en práctica sus conocimientos y habilidades dentro del país de origen rara vez inmigran (Portes & Celaya, 2013). El punto por resaltar es que no se trata de una comparación entre los ingresos y los trabajos estándar de los profesionales de primer mundo, sino de las condiciones internas de los países de periferia.
+Estados Unidos es un claro ejemplo del flujo de cerebros, en la era pos-guerra fue el primer país receptor de capital humano, lo cual se ha visto reflejado en su desarrollo tecnológico y económico. Dentro de una teoría no rezagada el efecto económico es positivo “como se ha visto anteriormente, cuanto más tiempo vivan los inmigrantes adultos en el extranjero y se establezcan las apuestas, más probable es que se involucren en el desarrollo de sus naciones de origen” (Portes & Celaya, 2013).
+
+Mujeres y fuga de cerebros
+
+De acuerdo con Docquier, Lowell y Marfouk (2009) es importante realizar una evaluación de género de la migración altamente calificada para el análisis general de fuga de cerebros, especialmente, porque el capital humano de las mujeres es un recurso aún más escaso que el de los hombres. En su estudio, se cuantifica y caracteriza la composición de género de la migración internacional según el nivel educativo. Se llegan a los siguientes resultados:
+
+i)	la proporción de mujeres inmigrantes altamente calificadas aumentó en casi todos los países de destino de la OCDE y sobrepasó la tasa de crecimiento tanto para mujeres poco calificadas como para hombres altamente calificados. Reflejando un cambio de género en los niveles de educación, del aumento de la demanda de mano de obra femenina, de la actitud de los países sobre migración femenina y de flujos migratorios de Sur a Norte
+
+ii)	la tasa de emigración de mujeres altamente calificadas es un 17% superior a la de los hombres. Esta brecha de genero está fuertemente correlacionada con la brecha de género en el logro educativo de la población de origen, evidenciando el acceso desigual a la educación y, por lo tanto, un impedimento para el desarrollo económico.
+
+Teniendo como referente esta literatura, la presente investigación tendrá como objetivo estudiar el impacto de las siguientes variables sobre la fuga de cerebros: 
+
+-	Índice de desarrollo humano: que califica los componentes de salud, educación y el nivel de vida.
+-	Corrupción: que califica la percepción de transparencia de los gobernantes
+-	Desempleo: condiciones laborales  
+
+Estas tres variables fueron las más relevantes en investigaciones previas y son consideradas como variables proxy a las políticas económicas de desarrollo. Cabe decir que no se ignora la importancia del género, sino que como la fuga de cerebros que se utilizará en el estudio estará discriminada por género, no se incluirá como variable.
+
+El estudio se realiza para 2 países de destino: Estados Unidos y Noruega en el año 2010. Por un lado, se escoge Noruega porque, según National Geographic, es el mejor país en el que una mujer puede vivir y ha subido al puesto 4 en el ranking de “Mejores lugares para que una mujer trabaje”, evaluado con el Glass-ceiling Index (o techo de cristal en español), según The Economist. Por otra parte, se escoge Estados Unidos, ya que es el país conocido con el mito popular del sueño americano, al que la gente migra con tal de buscar nuevas oportunidades de vida. 
+
+En la primera sección se describirán las bases de datos utilizadas y las variables de interés, en mayor profundidad. En la segunda sección se describirán los modelos a estimar y la hipótesis sobre estos. En tercer lugar, se dará paso a los resultados y, por último, en la cuarta sección se 
+
+# Bases de datos
+
+### Brain drain[^1]
+
+[^1]: [IAB brain-drain
+    data](https://www.iab.de/en/daten/iab-brain-drain-data.aspx#:~:text=IAB%20brain%2Ddrain%20dataset%3A%20Contains,low%2C%20medium%20and%20high%20skilled.)
+
+
+Nombre original de la base de datos: IAB brain-drain data 
+Conjunto de datos de fuga de cerebros del Instituto de Investigación Laboral (IAB
+por sus siglas en inglés) de acceso público y de carácter longitudinal.
+Contiene información sobre el número de personas nacidas en el
+extranjero de 25 o más años que viven en cada uno de los 20 países
+pertenecientes a la OCDE[^2] para los años 1980-2010, en intervalos de
+5 años; clasificados por género, país de origen y nivel educativo por
+cualificación (baja, media y alta).
+
+Se tienen 40 tablas en total, 20 de estas corresponden a las mujeres de los 20 países de la OCDE y la otras
+20 corresponden a los hombres de estos 20 países. Para cada una de las
+tablas se tienen 196 observaciones de los países de origen y 28
+variables, ya que se tienen 7 lustros que se dividen en 4: nivel
+educativo bajo, nivel educativo medio, nivel educativo alto y el total.
+
+De ésta base de datos se usará el material encontrado en Noruega y Estados Unidos los cuales se encuentran dividos por hombre y mujer. Por un lado se ecoge Noruega porque, según National Geographic, es el mejor país en el que una mujer puede vivir y ha subido al puesto 4 en el ranking de "Mejores lugares para que una mujer trabaje", evaluado con el Glass-ceiling Index (o techo de cristal en español), según The Economist. Por otra parte, se escoge Estados Unidos, ya que es el país conocido con el mito popular del sueño americano, al que la gente migra con tal de buscar nuevas oportunidades de vida. Por lo que, al final, se tienen 4 tablas: dos para Noruega (hombres y mujeres) y dos para Estados Unidos (hombres y mujeres).
+
+[^2]: Australia, Austria, Canadá, Chile, Dinamarca, Finlandia, Francia,
+    Alemania, Grecia, Irlanda, Luxemburgo, Países Bajos, Nueva Zelanda,
+    Noruega, Portugal, España, Suecia, Suiza, Reino Unido y Estados
+    Unidos.
+
+### Human Development Index[^3]
+
+[^3]: [Human Development
+    Reports](http://hdr.undp.org/en/indicators/137506#)
+
+Human Development Index (HDI), base de datos desarrollada en conjunto
+por UNDESA, UNESCO Institute for Statistics, UNSD, WB, Barro and Lee y
+IMF; publicada y extraída de Human Development Reports (UNDP) de acceso
+público. 
+
+Cuenta con un total de 32 variables tomando en cuenta el lugar
+que ocupa dentro del ranking, el país y el índice para cada año
+comprendido desde 1990 hasta 2019. Con ello el tipo de datos que se
+maneja es de carácter longitudinal. 
+
+Los elementos que califica el Índice de Desarrollo Humano calificado de 0 a 1 se divide en 3 componentes:
+salud acorde a la esperanza de vida, educación medida en el promedio de
+años de escolaridad para personas adultas y la expectativa de
+escolaridad en niños, y el nivel de vida por el PIB per cápita. 
+
+Lo relevante del índice es que tan posesionado se encuentra el país en
+términos de desarrollo y bienestar para su población. Para el caso de
+estudio como se encuentran los países en desarrollo social puede ser un
+motivo para buscar una mejor calidad de vida en el exterior.
+
+### Corruption Perception Index[^4]
+
+[^4]: [DATAHUB](https://datahub.io/core/corruption-perceptions-index)
+
+Corruption Perceptions Index califica el grado en que percibe la
+población a los servidores públicos y sus políticos. Este índice es
+desarrollado por Transparency International de manera anual, la base de
+datos es extraída desde el sitio web DATAHUB. Cuenta con 19 variables
+siendo el país (jurisdicción) y los datos anuales desde 1998 hasta 2015;
+cuenta con 227 variables por acoger el termino de jurisdicción donde los
+datos no son contabilizados solo por país si no que adiciona algunos
+regímenes políticos (cabe destacar que en estos casos se observan que
+dichas observaciones no poseen datos). Siguiendo con lo anterior la base
+de datos es de acceso público y es de carácter longitudinal.
+
+El CPI se observa entre 0 y 100, donde 100 es la más alta dando una
+percepción de transparencia de sus organismos políticos y 0 el cual es
+una percepción muy negativa en cuanto a corrupción. Es de relevancia porque entre menos favorable perciba una sociedad a sus dirigentes mayores incentivos tendrá para migrar a un país con mejor transparencia.
+
+### Desempleo[^5]
+
+[^5]: [Banco Mundial](https://datos.bancomundial.org/indicador/SL.UEM.TOTL.ZS)
+
+Nombre original de la base de datos: Desempleo total (% de la población
+activa total) (estimación del modelo OIT). 
+
+Entidad que produjo la base de datos: Banco Mundial. 
+
+La variable de desempleo es un índice que está medido con respecto al total de la población económicamente activa de
+cada país. Esta contiene 264 observaciones (países del mundo), y 34
+variables que indican el nombre del país, el código del país, el nombre
+del indicador, el código del indicador y los datos de los años
+1991-2020. Cabe destacar que los años empiezan desde 1960, sin embargo,
+no hay datos en estos años iniciales. Además, es una base de datos
+longitudinal con acceso público. 
+
+Esta variable es menester debido a que la dificultad de encontrar condiciones laborales estables incentiva a
+individuos a migrar a otros países por mejores oportunidades, entre
+ellos la mano de obra calificada.
+
+### Género[^6]
+
+[^6]: [IAB brain-drain data](https://www.iab.de/en/daten/iab-brain-drain-data.aspx#:~:text=IAB%20brain%2Ddrain%20dataset%3A%20Contains,low%2C%20medium%20and%20high%20skilled.)
+
+Nombre original de la base de datos: IAB brain-drain data.
+Para esta variable, se utilizará el mismo conjunto de datos de fuga de cerebros
+del Instituto de Investigación Laboral, el cual se describió
+anteriormente, enfatizando en la clasificación de los datos por género.
+
+# Identificación de variables
+
+La variable dependiente para esta investigación será la fuga de
+cerebros. Como la base de datos distingue entre el sexo femenino y
+masculino se facilita la visión de este efecto. 
+
+También, en línea con lo que se habia señalado, en la primera base de datos se usarán las tablas correspondientes a Noruega y Estados Unidos que se encuentran dividos por hombre y mujer.
+
+Las variables explicativas que se seleccionaron corresponden a: 
+
+  1. Índice de desarrollo humano
+  2. Índice de percepción de corrupción 
+  3. Desempleo 
+
+En específico:
+
+**Variable dependiente:** la migración de la población con alto nivel educativo hacía Estados Unidos y Noruega por hombres y mujeres.
+
+**Variable independiente principal:** índice de desarrollo humano (HDI), con la cual se mide el desarrollo económico del país teniendo los postulados básicos de Amarty Sen, PIB per capita, escolaridad y salud.
+
+**Variables de control:** 
+
++ Índice de percepción de corrupción: captura los efectos de que manera percibe la ciudadania sus gobiernos que puede afectar sus incentivos de migrar y de como se desarrolla el país.
+
++ Desempleo: es una variable proxy que refleja el estado del mercado laboral y las oportunidades que se dan localmente a sus ciudadanos.
+
+# Descripción de los modelos a estimar
+
+En el trabajo se usará el método de los Mínimos Cuadrados Ordinarios, este consiste en cuatro regresiones, con el fin de saber el impacto que tienen cada una de las variables entre hombres y mujeres en Estados Unidos y Noruega respectivamente. Cada regresión cuenta con tres variables independientes: Índice de Desarrollo Humano, Índice de Percepción de Corrupción y Desempleo. 
+
+Detalladamente, por parte de Estados Unidos en la primera regresión se quiere ver el impacto de las variables independientes anteriormente mencionadas con la migración de hombres con alto capital humano hacía los Estados Unidos, en la segunda el impacto de las variables independientes con la migración de mujeres con alto capital humano hacía los Estados Unidos. Con Noruega se busca de igual manera saber el impacto de las variables independientes con diferenciación del género.
+ - Modelo 1: Noruega Hombres
+ - Modelo 2: Noruega Mujeres
+ - Modelo 3: Estados Unidos Mujeres
+ - Modelo 4: Estados Unidos Hombres
+
+# Hipótesis
+
+El capital humano es uno de los factores más importantes para el crecimiento y desarrollo de un país. No debe ser problema una alta tasa de migración de capital humano, siempre y cuando se tenga un balance de cerebros positivo. Sin embargo, el deterioro de capital humano local agrava el constante avance en tecnologías, el cual evidencia cada vez más las brechas de ingresos entre países de renta baja, media y alta.  
+
+Suele creerse que los países son pobres porque siempre lo han sido. Pero solo es el reflejo de la incapacidad de generar un buen engranaje de las políticas para los ciudadanos altamente calificados. A pesar de que se invierta en educación (que tiene un impacto positivo sobre el crecimiento en el largo plazo), el no tener un buen sistema de mercado, especialmente de políticas migratorias, que aproveche esa mano de obra será totalmente inútil tecnificar trabajadores para mejorar la nación. Además, si hay barreras de entrada en diversos campos a la mujer se deja de explotar el potencial de alrededor de la mitad de la población. 
+
+```{r, include = FALSE}
+#Cargar base de datos
+NorMen <- read_excel("datos/iabbd_8010_v1 (2).xls", 
+                            sheet = "NOR-Men")
+
+NorWom <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "NOR-Women")
+
+USMen <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "USA-Men")
+
+USWom <- read_excel("datos/iabbd_8010_v1 (2).xls",
+                     sheet = "USA-Women")
+HDI <- read_csv("datos/Human Development Index (HDI) (1).csv", 
+                  skip = 5)
+
+CPI <- read_delim("datos/data_csv.csv", delim = ",")
+
+Unem <- read_excel("datos/API_SL.UEM.TOTL.ZS_DS2_es_excel_v2_2253098.xls",
+                   sheet = "Data")
+# MODIFICAR
+
+# Índice de Percepción de Corrupción 
+
+CPI <- CPI %>% select(c("Jurisdiction", "2010"))
+
+CPI <- rename(CPI, Country = "Jurisdiction", Corruption = "2010")
+
+# Índice de Desarrollo  Humano
+
+HDI <- HDI %>% select(c("Country", "2010"))
+
+HDI <- rename(HDI, Development = "2010")
+
+# Desempleo
+
+Unem <- Unem %>% select(c("Data Source", "...55"))
+
+Unem <- rename(Unem, Country = "Data Source", Unemployment = "...55")
+
+Unem <- Unem[-c(1,2,3),]
+
+# Noruega Hombres
+
+NorMen <- NorMen %>% select(c("Norway", "...29"))
+
+NorMen <- rename(NorMen, Country = "Norway", HighMenNor = "...29")
+
+NorMen <-  NorMen[-c(1,2,3),]
+
+# Noruega Mujeres 
+
+NorWom <- NorWom %>% select(c("Norway", "...29"))
+
+NorWom <- rename(NorWom, Country = "Norway", HighWomNor = "...29")
+
+NorWom <-  NorWom[-c(1,2,3),]
+
+# Estados Unidos Hombres
+
+USMen <- USMen %>% select(c("United States", "...29"))
+
+USMen <- rename(USMen, Country = "United States", HighMenUS = "...29")
+
+USMen <-  USMen[-c(1,2,3),]
+
+# Estados Unidos Mujeres
+
+USWom <- USWom %>% select(c("United States", "...29"))
+
+USWom <- rename(USWom, Country = "United States", HighWomUS = "...29")
+
+USWom <-  USWom[-c(1,2,3),]
+
+# Unión de base de datos
+
+Union1 <- left_join(NorMen,NorWom, by = "Country") 
+
+Union2 <- left_join(USWom, USMen, by ="Country")
+
+UnionY <- left_join(Union1, Union2, by = "Country")
+
+Union3 <- left_join(CPI, HDI, by = "Country")
+
+UnionX <- left_join(Union3, Unem, by = "Country")
+
+Base <- left_join(UnionY, UnionX, by = "Country")
+
+# Modificación de clase
+
+base <- as.data.frame(sapply(Base[,2:8],as.numeric))
+
+Base <- cbind(Base[,1],base)
+
+```
+
+# Resultados
+
+Para estimar los modelos de manera no sesgada, se realizan las siguientes transformaciones en las variables desarrollo y corrupción.
+ - Desarrollo: para el Índice de Desarrollo Humano en el 2010 se calificaba del 0 a 1, con cifras de 3 decimales. Por lo cual, está variable se multiplica por 1000 para poder realizar el aumento en 1 milesima del desarrollo humano en el país de origen.
+ - Corrupción: para el Índice de Percepción de Corrupción en el 2010 se calificaba del 0 al 10, con una cifra de un decimal. Por lo cual, está variable se multiplica por 10 para poder realizar el aumento en 1 decima de la percepción de corrupción en el país de origen.
+ 
+```{r, include=FALSE}
+Base <- Base %>% mutate(Development = Development*1000, Corruption = Corruption*10)
+reg1<- lm(HighMenNor ~ Development + Corruption + Unemployment, data = Base)
+summary(reg1)
+ 
+reg2<- lm(HighWomNor ~ Development + Corruption + Unemployment, data = Base)
+summary(reg2)
+ 
+reg3<- lm(HighWomUS ~ Development + Corruption + Unemployment, data = Base)
+summary(reg3)
+ 
+reg4 <- lm(HighMenUS ~ Development + Corruption + Unemployment, data = Base)
+summary(reg4)
+ 
+modelos<- list("Modelo 1" = reg1, "Modelo 2" = reg2, "Modelo 3" = reg3, "Modelo 4" = reg4)
+ 
+resumen <- stargazer(modelos, type = "text", 
+          out = "tabla1.tex", 
+          title = "Tabla 1 - Resultados de los modelos estimados",
+          digits = 1)
+```
+
+El coeficiente de desarrollo para las mujeres es estadísticamente significativo a un nivel de confianza al 90%, teniendo un valor p inferior a 0.1, esto implica que ante el aumento de 1 milesima en el Índice de Desarrollo Humano, la migración altamente cualificada se aumenta en 0.9 mujeres hacía noruega y 164.2 hacía los Estados Unidos, ceteris paribus.
+
+El resto de variables carecen de significancia estadística, sin embargo, todos los casos la mejoría en la percepción de la corrupción, es decir, un Estado más transparente, está negativamente relacionado con la migración hacía estos dos países y es indiferente al sexo.
+
+Para el caso del desempleo, se observa que ante el aumento de esté se encuentra negativamente asociado con la migración hacía estos dos países y es indiferente al sexo.
+
+El R cuadrado y el R ajustado son pequeños a causa de la variable de desempleo al tener varios datos faltantes redujo el tamaño de la muestra.
+
+# Conclusiones 
+
+En cuanto a la significancia de los coeficientes para los cuatro modelos se encuentra que: para los dos modelos que corresponden a las mujeres, el índice de desarrollo humano es la única variable que resulta estadísticamente significativa. Es decir, se puede rechazar la hipótesis nula de que el coeficiente es igual a 0, en favor de la hipótesis alternativa de que el coeficiente es diferente de 0, pero únicamente a un nivel de significancia del 90%. 
+
+No obstante, las otras dos variables no son estadísticamente significativas al 90% de confianza, pero conllevan una correlación negativa, la cual puede ser explicada en que entre mayor tasa de desempleo las personas tendrían un menor ingreso disponible que les permitan capacitarse o emigrar. Para el caso de la corrupción, una mejoría en la percepción del manejo del Estado y sus instituciones, implicarían un menor incentivo para laborar en un país diferente al de origen. Por último, los supuestos del modelo se incumplen en el caso de normalidad, sin embargo, no posee ni problemas de no autocorrelación con el error y tampoco de homocedasticidad.
+
+En cuanto a la relación de las mujeres y la migración, se denota que esté genero es el que se encuentra mayor incentivado a emigrar a países como Estados Unidos o Noruega a su vez, un país con mejores condiciones tiene la capacidad de generar mano de obra altamente cualificada por lo que le perite herramientas a las personas para poder desarrollarse en un entorno profesional, distinto al de origen.
+
+
