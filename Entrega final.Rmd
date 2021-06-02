@@ -1,10 +1,11 @@
 ---
 title: "Entrega Final"
 author: "Nathalie Bareño, Sebastián Rincón y Karen Vargas"
-date: "31/5/2021"
+date: "1/6/2021"
 output:
+  pdf_document:
+    latex_engine: xelatex
   word_document: default
-  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
@@ -20,22 +21,16 @@ library(lmtest)
 library(modelsummary)
 ```
 
-# Pregunta de Investigación
-
-*¿En qué medida el manejo de políticas económicas para el desarrollo afecta la fuga de mano de obra cualificada?*
 
 # Introducción 
 
 El presente proyecto de investigación tiene como tema principal la migración de mano de obra altamente cualificada y los canales, relacionados al desarrollo de los países, que responden y dan lugar a esta migración. Para empezar, cabe aclarar cuál es su definición. La migración de mano de obra altamente cualificada ha sido sustituida por el concepto de “fuga de cerebros” o “brain drain”, en inglés. Este fenómeno comprende la salida de estudiantes y profesionales (personas capacitadas o talentosas) de su país de origen a otro país, motivada por conflictos o falta de oportunidades (OIM, 2006). 
 
-GLOSARIO SOBRE MIGRACIÓN (corteidh.or.cr)
-
 En este sentido, la circulación e intercambio de cerebros permite comprender la existencia de dinámicas, tanto en los países de origen como en los países de destino. Por ejemplo, para los países de origen, la “perdida” que representa la fuga de cerebros puede presentar al país como facilitador móvil de agentes altamente cualificados para atraer conocimiento, desarrollo científico y tecnológico y, por otro lado, para los países de destino, que han introducido reglamentaciones de selectividad de política migratoria, favorecen la recepción de mano de obra especializada y flexibilizan la contratación (Bermúdez Rico, 2020).
 
-n19a08.pdf (scielo.org.co)
-
 Asimismo, la fuga de cerebros da luces del nivel de desarrollo del país del que se emigra y al que se inmigra; de allí, surge el interés de esta investigación. Por lo tanto, se propone responder a la pregunta: ¿en qué medida el manejo de políticas económicas para el desarrollo afecta la fuga de mano de obra cualificada? Sin embargo, para identificar las políticas para el desarrollo que han sido consideradas como determinantes de la fuga de cerebros, se procederá a revisar algunas investigaciones previas sobre el tema en torno a las causas, consecuencias y el rol de las mujeres en la fuga de cerebros.
-Causas de la fuga de cerebros 
+
+***Causas de la fuga de cerebros*** 
 
 En los países en desarrollo, Ngoma e Ismail (2013) consideran que las posibles causas de la fuga de cerebros son los factores de empuje y atracción. Los de empuje son malos indicadores de los países de origen como bajos salarios, ineficiencia gubernamental, corrupción y casos de abuso de los derechos humanos. Por su parte, los factores de atracción, que en su mayoría obedecen a características de economías avanzadas, son los mejores salarios, la educación con mayor cualidad y su factibilidad de acceso; la estabilidad política y las ayudas para las investigaciones. Además, encuentran que a) la disparidad de ingresos tiende a incentivar la migración, mientras que si aumentan los ingresos en el país de origen se desincentiva la migración, b) entre mayor población, las cuotas de migración disminuyen y c) la efectividad del gobierno aumenta los flujos migratorios, lo cual es contrario a lo que se esperaría (si hay un buen gobierno, las personas permanecen en el lugar).
 
@@ -49,7 +44,7 @@ Por último, para considerar el papel de la corrupción sobre la migración alta
 
 Por lo tanto, esta pérdida neta está impulsada por la falta de entrada como por el impulso de capital humano saliente. Es importante mencionar que, con esta investigación, se puede afirmar que hay otros factores, aparte de la corrupción, que se comportarían más como un obstáculo para las entradas que un incentivo para las salidas. 
 
-Consecuencias de la fuga de cerebros 
+***Consecuencias de la fuga de cerebros*** 
 
 Siguiendo la argumentación de Sefa & Asgharzadeh (2002), después de la fuga de cerebros africana, se formó una espiral ocasionada por la desigualdad entre países y la globalización hacía un escape del alto talento local que solo ayuda a empeorar las situaciones internas que comienza a alimentar una segunda fuga. 
 
@@ -60,25 +55,25 @@ Contrastando la idea que, para los países de la periferia, la fuga de cerebros 
 Ahora, hay que considerar que a pesar de que varios jóvenes en las periferias tienen acceso a tecnología y educación, no hay una cantidad de campos cualificados suficientes para todos los jóvenes, así que deciden emigrar. Por el contrario, los profesionales que pueden poner en práctica sus conocimientos y habilidades dentro del país de origen rara vez inmigran (Portes & Celaya, 2013). El punto por resaltar es que no se trata de una comparación entre los ingresos y los trabajos estándar de los profesionales de primer mundo, sino de las condiciones internas de los países de periferia.
 Estados Unidos es un claro ejemplo del flujo de cerebros, en la era pos-guerra fue el primer país receptor de capital humano, lo cual se ha visto reflejado en su desarrollo tecnológico y económico. Dentro de una teoría no rezagada el efecto económico es positivo “como se ha visto anteriormente, cuanto más tiempo vivan los inmigrantes adultos en el extranjero y se establezcan las apuestas, más probable es que se involucren en el desarrollo de sus naciones de origen” (Portes & Celaya, 2013).
 
-Mujeres y fuga de cerebros
+***Mujeres y fuga de cerebros***
 
 De acuerdo con Docquier, Lowell y Marfouk (2009) es importante realizar una evaluación de género de la migración altamente calificada para el análisis general de fuga de cerebros, especialmente, porque el capital humano de las mujeres es un recurso aún más escaso que el de los hombres. En su estudio, se cuantifica y caracteriza la composición de género de la migración internacional según el nivel educativo. Se llegan a los siguientes resultados:
 
-i)	la proporción de mujeres inmigrantes altamente calificadas aumentó en casi todos los países de destino de la OCDE y sobrepasó la tasa de crecimiento tanto para mujeres poco calificadas como para hombres altamente calificados. Reflejando un cambio de género en los niveles de educación, del aumento de la demanda de mano de obra femenina, de la actitud de los países sobre migración femenina y de flujos migratorios de Sur a Norte
+i)	la proporción de mujeres inmigrantes altamente calificadas aumentó en casi todos los países de destino de la OCDE y sobrepasó la tasa de crecimiento tanto para mujeres poco calificadas como para hombres altamente calificados. Reflejando un cambio de género en los niveles de educación, del aumento de la demanda de mano de obra femenina, de la actitud de los países sobre migración femenina y de flujos migratorios de Sur a Norte.
 
 ii)	la tasa de emigración de mujeres altamente calificadas es un 17% superior a la de los hombres. Esta brecha de genero está fuertemente correlacionada con la brecha de género en el logro educativo de la población de origen, evidenciando el acceso desigual a la educación y, por lo tanto, un impedimento para el desarrollo económico.
 
 Teniendo como referente esta literatura, la presente investigación tendrá como objetivo estudiar el impacto de las siguientes variables sobre la fuga de cerebros: 
 
 -	Índice de desarrollo humano: que califica los componentes de salud, educación y el nivel de vida.
--	Corrupción: que califica la percepción de transparencia de los gobernantes
--	Desempleo: condiciones laborales  
+-	Corrupción: que califica la percepción de transparencia de los gobernantes.
+-	Desempleo: condiciones laborales.
 
 Estas tres variables fueron las más relevantes en investigaciones previas y son consideradas como variables proxy a las políticas económicas de desarrollo. Cabe decir que no se ignora la importancia del género, sino que como la fuga de cerebros que se utilizará en el estudio estará discriminada por género, no se incluirá como variable.
 
 El estudio se realiza para 2 países de destino: Estados Unidos y Noruega en el año 2010. Por un lado, se escoge Noruega porque, según National Geographic, es el mejor país en el que una mujer puede vivir y ha subido al puesto 4 en el ranking de “Mejores lugares para que una mujer trabaje”, evaluado con el Glass-ceiling Index (o techo de cristal en español), según The Economist. Por otra parte, se escoge Estados Unidos, ya que es el país conocido con el mito popular del sueño americano, al que la gente migra con tal de buscar nuevas oportunidades de vida. 
 
-En la primera sección se describirán las bases de datos utilizadas y las variables de interés, en mayor profundidad. En la segunda sección se describirán los modelos a estimar y la hipótesis sobre estos. En tercer lugar, se dará paso a los resultados y, por último, en la cuarta sección se 
+En la primera sección se describirán las bases de datos utilizadas y las variables de interés, en mayor profundidad. En la segunda sección se describirán los modelos a estimar y la hipótesis sobre estos. En tercer lugar, se dará paso a los resultados y, por último, en la cuarta sección se presentarán las conclusiones.
 
 # Bases de datos
 
@@ -150,7 +145,7 @@ regímenes políticos (cabe destacar que en estos casos se observan que
 dichas observaciones no poseen datos). Siguiendo con lo anterior la base
 de datos es de acceso público y es de carácter longitudinal.
 
-El CPI se observa entre 0 y 100, donde 100 es la más alta dando una
+El CPI se observa entre 0 y 10, donde 10 es la más alta dando una
 percepción de transparencia de sus organismos políticos y 0 el cual es
 una percepción muy negativa en cuanto a corrupción. Es de relevancia porque entre menos favorable perciba una sociedad a sus dirigentes mayores incentivos tendrá para migrar a un país con mejor transparencia.
 
@@ -210,23 +205,7 @@ En específico:
 
 + Desempleo: es una variable proxy que refleja el estado del mercado laboral y las oportunidades que se dan localmente a sus ciudadanos.
 
-# Descripción de los modelos a estimar
-
-En el trabajo se usará el método de los Mínimos Cuadrados Ordinarios, este consiste en cuatro regresiones, con el fin de saber el impacto que tienen cada una de las variables entre hombres y mujeres en Estados Unidos y Noruega respectivamente. Cada regresión cuenta con tres variables independientes: Índice de Desarrollo Humano, Índice de Percepción de Corrupción y Desempleo. 
-
-Detalladamente, por parte de Estados Unidos en la primera regresión se quiere ver el impacto de las variables independientes anteriormente mencionadas con la migración de hombres con alto capital humano hacía los Estados Unidos, en la segunda el impacto de las variables independientes con la migración de mujeres con alto capital humano hacía los Estados Unidos. Con Noruega se busca de igual manera saber el impacto de las variables independientes con diferenciación del género.
- - Modelo 1: Noruega Hombres
- - Modelo 2: Noruega Mujeres
- - Modelo 3: Estados Unidos Mujeres
- - Modelo 4: Estados Unidos Hombres
-
-# Hipótesis
-
-El capital humano es uno de los factores más importantes para el crecimiento y desarrollo de un país. No debe ser problema una alta tasa de migración de capital humano, siempre y cuando se tenga un balance de cerebros positivo. Sin embargo, el deterioro de capital humano local agrava el constante avance en tecnologías, el cual evidencia cada vez más las brechas de ingresos entre países de renta baja, media y alta.  
-
-Suele creerse que los países son pobres porque siempre lo han sido. Pero solo es el reflejo de la incapacidad de generar un buen engranaje de las políticas para los ciudadanos altamente calificados. A pesar de que se invierta en educación (que tiene un impacto positivo sobre el crecimiento en el largo plazo), el no tener un buen sistema de mercado, especialmente de políticas migratorias, que aproveche esa mano de obra será totalmente inútil tecnificar trabajadores para mejorar la nación. Además, si hay barreras de entrada en diversos campos a la mujer se deja de explotar el potencial de alrededor de la mitad de la población. 
-
-```{r, include = FALSE}
+```{r, include=FALSE}
 #Cargar base de datos
 NorMen <- read_excel("datos/iabbd_8010_v1 (2).xls", 
                             sheet = "NOR-Men")
@@ -322,17 +301,68 @@ Base <- cbind(Base[,1],base)
 
 ```
 
+A continuación se presenta una tabla de las estadísticas descriptivas de las variables.
+
+```{r, echo=FALSE}
+stats <- stargazer(as.data.frame(Base), type = "text", 
+          out = "tabla1.tex", 
+          title = "Tabla 1 - Estadística Descriptiva",
+          digits = 1, 
+          covariate.labels = c("NOR-Hombres", "NOR-Mujeres", 
+                               "US-Mujeres", 
+                               "US-Hombres", "Corrupción", "IDH", "Desempleo"),
+          flip = TRUE)
+
+```
+
+En primer lugar, cabe decir que el número de observaciones para las variables dependientes de este estudio (migración de hombres y mujeres para Noruega y Estados Unidos) es 196. En cuanto a las variables independientes, es decir, corrupción, IDH y desempleo, no se tiene el mismo número de observaciones. La variable que tiene más valores faltantes es la relacionada con el desempleo (con 126 valores), seguida a esta, se encuentra el índice de desarrollo humano con 40 valores faltantes y por último, la variable proxy de corrupción, que tiene 31 valores faltantes.
+
+Ahora, teniendo en cuenta la media, se puede decir que Estados Unidos tiene un flujo más grande de migración calificada que Noruega,  representando aproximadamente el 1% de la estadounidense. Además, se evidencia, para los dos países, que la migración altamente cualificada femenina es mayor que la masculina. Por otro lado, el índice de percepción de corrupción muestra que en un escala de 0-10, que es la utilizada para el periodo de estudio (2010), captura una media global de 4. Sin embargo, para Estados Unidos se tiene un índice de corrupcion de 7.1 y para Noruega de 8.6.
+
+Por su parte, el índice de desarrollo humano está medido en una escala de 0-1. Para este caso, Estados Unidos tiene un índice más alto (0.916) que Noruega (0.940) y la media global es de 0.7. Ambos de los países en estudio estan catalogados como países con alto desarrollo Humano, al tener un valor mayor a 0.8. Por último, no se conoce ni para Estados Unidos, ni para Noruega, la tasa de desempleo en el año 2010, en otras palabras, hacen parte de los valores faltantes.
+
+En cuanto a la desviación estándar, ésta nos indica que el número de migrantes altamente cualificados, tanto para hombres como mujeres en Noruega, se desvía de la media aproximadamente 1000 personas. En Estados Unidos, la desviación estándar es mucho más amplia, con un promedio de 87000 personas.
+
+Revisando esta estadística para las variables independientes, primero, se encuentra que el puntaje para el índice de corrupción se desvía de la media en 2.1 puntos; segundo, el puntaje para el índice desarrollo humano se desvía en 0.2 puntos en su escala y tercero la tasa de desempleo se desvía de su media en 5.4%.
+
+El valor mínimo para las variables dependientes es de 0, es decir, ninguna persona migró a Estados Unidos o Noruega desde otro país; el valor máximo para la migración hacia Noruega es mayor para los hombres (9940 de Polonia) que para las mujeres (6785 de Suecia). En Estados Unidos el máximo también es mayor para los hombres (675837 de México) que para las mujeres (672968 de Filipinas). No obstante, como se dijo anteriormente se tiene una media mayor para las mujeres que para los hombres.
+
+La variable proxy de corrupción tiene un valor mínimo de 1.1 en Somalia y un valor máximo de 9.3 en Dinamarca, Singapur y Nueva Zelanda. Por otro lado, el índice de desarrollo humano muestra un valor mínimo de 0.3 en Nigeria y uno máximo de 0.9 en Suiza y para la tasa de desempleo se tiene un mínimo de 0.4 en Qatar y un máximo de 26.8 en Lesoto.
+
+Como última estadística descriptiva se tiene a los percentiles 25 y 75, también llamados cuartiles 1 y 3, respectivamente. El primero de estos muestra que el 25% de los datos a) de migración hacia Noruega es menor o igual aproximadamente a 6.7  personas, b) de migración hacia Estados Unidos es menor o igual a aproximadamente 221 personas, c) del índice de percepción de corrupción es menor o igual a 2.4, d) del índice de desarrollo humano es menor o igual a 0.5 y e) de la tasa de desempleo es menor o igual a 3.4. Por su parte, el cuartil 3 muestra que el 75% de los datos son iguales o menores a) en la migración hacia Noruega a aproximadamente 240 personas, b) en la migración hacia Estados Unidos a aproximadamente 27301 personas, c) en el índice de corrupción a 5.1 puntos, d) en el índice de desarrollo humano a 0.8 y e) en la tasa de desempleo a 9.8.
+
+Para mayor información sobre las estadísticas descriptivas, ir al apartado de anexos.
+
+# Descripción de los modelos a estimar
+
+En el trabajo se usará el método de los Mínimos Cuadrados Ordinarios, este consiste en cuatro regresiones, con el fin de saber el impacto que tienen cada una de las variables entre hombres y mujeres en Estados Unidos y Noruega respectivamente. Cada regresión cuenta con tres variables independientes: Índice de Desarrollo Humano, Índice de Percepción de Corrupción y Desempleo. 
+
+Detalladamente, por parte de Estados Unidos en la primera regresión se quiere ver el impacto de las variables independientes anteriormente mencionadas con la migración de hombres con alto capital humano hacía los Estados Unidos, en la segunda el impacto de las variables independientes con la migración de mujeres con alto capital humano hacía los Estados Unidos. Con Noruega se busca de igual manera saber el impacto de las variables independientes con diferenciación del género.
+
+ + Modelo 1: Noruega Hombres
+ + Modelo 2: Noruega Mujeres
+ + Modelo 3: Estados Unidos Mujeres
+ + Modelo 4: Estados Unidos Hombres
+
+# Hipótesis
+
+El capital humano es uno de los factores más importantes para el crecimiento y desarrollo de un país. No debe ser problema una alta tasa de migración de capital humano, siempre y cuando se tenga un balance de cerebros positivo. Sin embargo, el deterioro de capital humano local agrava el constante avance en tecnologías, el cual evidencia cada vez más las brechas de ingresos entre países de renta baja, media y alta.  
+
+Suele creerse que los países son pobres porque siempre lo han sido. Pero solo es el reflejo de la incapacidad de generar un buen engranaje de las políticas para los ciudadanos altamente calificados. A pesar de que se invierta en educación (que tiene un impacto positivo sobre el crecimiento en el largo plazo), el no tener un buen sistema de mercado, especialmente de políticas migratorias, que aproveche esa mano de obra será totalmente inútil tecnificar trabajadores para mejorar la nación. Además, si hay barreras de entrada en diversos campos a la mujer se deja de explotar el potencial de alrededor de la mitad de la población. 
+
+
 # Resultados
 
 Para estimar los modelos de manera no sesgada, se realizan las siguientes transformaciones en las variables desarrollo y corrupción.
- - Desarrollo: para el Índice de Desarrollo Humano en el 2010 se calificaba del 0 a 1, con cifras de 3 decimales. Por lo cual, está variable se multiplica por 1000 para poder realizar el aumento en 1 milesima del desarrollo humano en el país de origen.
- - Corrupción: para el Índice de Percepción de Corrupción en el 2010 se calificaba del 0 al 10, con una cifra de un decimal. Por lo cual, está variable se multiplica por 10 para poder realizar el aumento en 1 decima de la percepción de corrupción en el país de origen.
+
+ + Desarrollo: para el Índice de Desarrollo Humano en el 2010 se calificaba del 0 a 1, con cifras de 3 decimales. Por lo cual, está variable se multiplica por 1000 para poder realizar el aumento en 1 milesima del desarrollo humano en el país de origen.
+ + Corrupción: para el Índice de Percepción de Corrupción en el 2010 se calificaba del 0 al 10, con una cifra de un decimal. Por lo cual, está variable se multiplica por 10 para poder realizar el aumento en 1 decima de la percepción de corrupción en el país de origen.
  
 ```{r, include=FALSE}
 Base <- Base %>% mutate(Development = Development*1000, Corruption = Corruption*10)
 reg1<- lm(HighMenNor ~ Development + Corruption + Unemployment, data = Base)
 summary(reg1)
- 
+
 reg2<- lm(HighWomNor ~ Development + Corruption + Unemployment, data = Base)
 summary(reg2)
  
@@ -343,7 +373,9 @@ reg4 <- lm(HighMenUS ~ Development + Corruption + Unemployment, data = Base)
 summary(reg4)
  
 modelos<- list("Modelo 1" = reg1, "Modelo 2" = reg2, "Modelo 3" = reg3, "Modelo 4" = reg4)
- 
+```
+
+```{r, echo=FALSE, message=FALSE} 
 resumen <- stargazer(modelos, type = "text", 
           out = "tabla1.tex", 
           title = "Tabla 1 - Resultados de los modelos estimados",
@@ -358,12 +390,185 @@ Para el caso del desempleo, se observa que ante el aumento de esté se encuentra
 
 El R cuadrado y el R ajustado son pequeños a causa de la variable de desempleo al tener varios datos faltantes redujo el tamaño de la muestra.
 
+Finalmente, se realizaron las pruebas de los supuestos obteniendo lo siguiente:
+
+ + Normalidad: Con el resultado de la prueba Jarque-Bera, el modelo presenta problemas de normalidad, al ser la hipotesis nula que pertenencen a una distribución normal.
+ + Homocedasticidad: Para el caso de la prueba Breush-Pagan lla hipótesis nula es que los datos son homocedasticos, con esto los valores P no permiten rechazar la hipótesis nula de homocedasticidad.
+ + No Autocorrelación: Para la prueba Durbin-Watson la hipótesis nula es de la no autocorrelación del error, por ende los valores P no permiten rechazar la hipótesis nula a ningúna significancia convencional (1%,5%,10%), por lo cumple el supuesto.
+
+Con lo cual el único supuesto que se incumple es el de normalidad, esto a raíz de la desigualdad en los datos por parte de las brechas de ingreso alto, medio y bajo, por lo cual sería recomendable que en proximos estudios se haga una división de los mismos. En adición, de usar datos más recientes de migración para que no se presenten datos faltantes en la variable del desempleo que sesga el estudio.
+
+De igual manera que con las estadísticas descriptivas, los resultados de los supuestos se encuentran en el apartado de anexos.
+
 # Conclusiones 
 
 En cuanto a la significancia de los coeficientes para los cuatro modelos se encuentra que: para los dos modelos que corresponden a las mujeres, el índice de desarrollo humano es la única variable que resulta estadísticamente significativa. Es decir, se puede rechazar la hipótesis nula de que el coeficiente es igual a 0, en favor de la hipótesis alternativa de que el coeficiente es diferente de 0, pero únicamente a un nivel de significancia del 90%. 
 
+Siendo así, se debe tener en cuenta que el Índice de Desarrollo Humano contiene 3 componentes de expectativa de vida, escolaridad y PIB per capita. Por lo que es dificíl identificar el empacto de cada uno de los componentes mencionados en la migración de las mujeres altamente cualificadas.
+
 No obstante, las otras dos variables no son estadísticamente significativas al 90% de confianza, pero conllevan una correlación negativa, la cual puede ser explicada en que entre mayor tasa de desempleo las personas tendrían un menor ingreso disponible que les permitan capacitarse o emigrar. Para el caso de la corrupción, una mejoría en la percepción del manejo del Estado y sus instituciones, implicarían un menor incentivo para laborar en un país diferente al de origen. Por último, los supuestos del modelo se incumplen en el caso de normalidad, sin embargo, no posee ni problemas de no autocorrelación con el error y tampoco de homocedasticidad.
 
 En cuanto a la relación de las mujeres y la migración, se denota que esté genero es el que se encuentra mayor incentivado a emigrar a países como Estados Unidos o Noruega a su vez, un país con mejores condiciones tiene la capacidad de generar mano de obra altamente cualificada por lo que le perite herramientas a las personas para poder desarrollarse en un entorno profesional, distinto al de origen.
+
+
+# Referencias
+
+Bermúdez Rico, R. E. (2010). Migración calificada e integración de las sociedades de destino. Obtenido de <http://www.scielo.org.co/pdf/soec/n19/n19a08.pdf>
+
+Ngoma, A. L., & Ismail, N. W. (2013). The determinants of brain drain in developing countries. Obtenido de <https://www.researchgate.net/publication/263750713_The_determinants_of_brain_drain_in_developing_countries>
+
+Organización Internacional para las migraciones (OIM). (2006). Glosario sobre migración. Obtenido de <https://www.corteidh.or.cr/sitios/Observaciones/11/Anexo4.pdf>
+
+Safa Dei, G. J., & Asgharzadeh. (2002). What Is to Be Done? A Look at Some Causes and Consequences of the African Brain Drain. Obtenido de <https://www.researchgate.net/publication/271260349_What_Is_to_Be_Done_A_Look_at_Some_Causes_and_Consequences_of_the_African_Brain_Drain>
+
+ARIU, A. (2013). The Balance of Brains: Corruption and High Skilled Migration. Ottignes loivain la nueve: LIDAM Discussion Papers IRES.
+
+Celaya, A. P. (2013). Modernization for Emigration: Determinants and consequences of the brain drain. Obtenido de <https://watermark.silverchair.com/daed_a_00226.pdf?token=AQECAHi208BE49Ooan9kkhW_Ercy7Dm3ZL_9Cf3qfKAc485ysgAAAnwwggJ4BgkqhkiG9w0BBwagggJpMIICZQIBADCCAl4GCSqGSIb3DQEHATAeBglghkgBZQMEAS4wEQQMzl4hRa5kX3cFXleRAgEQgIICL0Jx54Wg5vpdsyydmIhbgia0DGb1jTNGJsqoEjz-co>
+
+Frédéric Docquier, B. L. (2009). A gendered assessment of highly skilled emigration - Population and development review (2009). Obtenido de <https://www.jstor.org/stable/25487664?seq=1>
+
+Ínce, C. (15 de Diciembre de 2020). From brain drain to brain circulation: brain power in regional development - International Journal of Eurasia. Obtenido de <https://www.researchgate.net/publication/347921249_FROM_BRAIN_DRAIN_TO_BRAIN_CIRCULATION_BRAIN_POWER_IN_REGIONAL_DEVELOPMENT>
+
+
+# Anexos
+
+### Estadísticas descriptivas
+
+
+```{r, include=FALSE}
+
+options(scipen =999
+        )
+a6 <- ggplot(data= Base, mapping = aes(x=HighMenNor))+
+  geom_histogram(aes(HighMenNor), bins = 9, fill = "darkgoldenrod1", color = "black")+
+    labs(title="NOR-Hombres", x= "No.Cualificados", y= "Países")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12))
+
+b6 <- ggplot(data= Base, mapping = aes(
+  x=HighWomNor,
+  ))+
+  geom_histogram(aes(HighWomNor), bins = 9, fill = "darkolivegreen1", color = "black")+
+    labs(title="NOR-Mujeres", x= "No.Cualificados", y= "Países")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12))
+
+c6 <- ggplot(data= Base, mapping = aes(
+  x=HighMenUS,
+  ))+
+  geom_histogram(aes(HighMenUS), bins = 9, fill = "darkorange", color = "black")+ 
+  labs(title="US-Hombres", x= "No.Cualificados", y= "Países")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12))
+
+d6 <- ggplot(data= Base, mapping = aes(
+  x=HighWomUS))+ 
+  geom_histogram(aes(HighWomUS), bins = 9, fill = "darkseagreen2", color = "black" )+
+  labs(title="US-Mujeres", x= "No.Cualificados", y= "Países")+
+  theme_classic()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12))
+```
+
+```{r, echo=FALSE}
+ggarrange(a6, b6)
+ggarrange(d6, c6)
+```
+
+
+Histograma del Índice de Desarrollo Humano
+
+```{r, echo=FALSE, warning=FALSE}
+ggplot(data= Base, mapping = aes(x=Development))+
+  geom_histogram(aes(Development), bins = 15, fill= "lightblue", color = "black")+
+  labs(title="Índice de Desarrollo Humano", x= "Índice de desarrollo humano", y= "Países" , caption = "Fuente: UNESCO Institute for Statistics")+
+  theme_bw()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 16), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 12), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 12))
+```
+Dispersogramas de la migración por sexo y país de destino de acuerdo con e índice de desarrollo humano.
+
+
+```{r, include=FALSE}
+a8 <- ggplot(data = Base, 
+       mapping = aes(x = Development, y = HighMenUS)) +
+  geom_point(color = "coral", shape = 19, alpha = 0.7, size = 4) +
+  scale_y_continuous(labels = label_number()) +
+  labs(title = "Dispersograma US-Hombres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
+  theme_pander()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 12), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 10), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 10), axis.text = element_text(face = "italic", family = "serif", size = 12))
+
+b8 <- ggplot(data = Base, 
+       mapping = aes(x = Development, y = HighWomUS)) +
+  geom_point(color = "cornflowerblue", shape = 19, alpha = 0.7, size = 4) +
+  labs(title = "Dispersograma US-Mujeres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
+  scale_y_continuous(labels = label_number())+
+  theme_pander()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 12), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 10), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 10), axis.text = element_text(face = "italic", family = "serif", size = 12))
+
+c8 <- ggplot(data = Base, 
+       mapping = aes(x = Development, y = HighWomNor)) +
+  geom_point(color = "olivedrab1", shape = 19, alpha = 0.7, size = 4) +
+  scale_y_continuous(labels = label_number()) +
+  labs(title = "Dispersograma NOR-Mujeres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
+  theme_pander()+
+  theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 12), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 10), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 10), axis.text = element_text(face = "italic", family = "serif", size = 12))
+
+d8 <- ggplot(data = Base, 
+         mapping = aes(x = Development, y = HighMenNor)) +
+    geom_point(color = "plum2", shape = 19, alpha = 0.7, size = 4) +
+    scale_y_continuous(labels = label_number()) +
+    labs(title = "Dispersograma NOR-Hombres", x = "Índice de Desarrollo Humano", y = "No. Cualificados")+
+    theme_pander()+
+    theme(plot.title = element_text(hjust = 0.5, face = "bold", family = "serif", size = 12), axis.title.x = element_text(face = "bold.italic", family = "serif", size = 10), axis.title.y = element_text(face = "bold.italic", family = "serif", size = 10), axis.text = element_text(face = "italic", family = "serif", size = 12))
+```
+
+```{r, echo=FALSE}
+ggarrange(a8,b8,c8,d8)
+```
+
+### Pruebas de supuestos
+
+
+```{r, include=FALSE}
+res1 <- reg1$residuals
+
+res2 <- reg2$residuals
+
+res3 <- reg3$residuals
+
+res4 <- reg4$residuals
+```
+
+Jarque-Bera
+```{r, echo=FALSE}
+jarque.bera.test(res1)
+jarque.bera.test(res2)
+jarque.bera.test(res3)
+jarque.bera.test(res4)
+```
+
+```{r, echo=FALSE}
+plot(reg1)
+plot(reg2)
+plot(reg3)
+plot(reg4)
+```
+
+
+
+Breush-Pagan
+```{r, echo=FALSE}
+bptest(reg1)
+bptest(reg2)
+bptest(reg3)
+bptest(reg4)
+```
+Durbin-Watson
+```{r, echo=FALSE}
+dwtest(reg1)
+dwtest(reg2)
+dwtest(reg3)
+dwtest(reg4)
+```
+
 
 
